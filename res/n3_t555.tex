@@ -1,0 +1,88 @@
+\documentclass{article}
+
+\usepackage{preamble}
+
+\begin{document}
+
+The Improved Lennard-Jones (ILJ) potential is given by
+%
+\begin{equation}
+    V_{ILJ}(r) = \epsilon \left[ \frac{m}{n(r)-m} \cdot \Big( \frac{r_0}{r} \Big)^{n(r)} -
+                                 \frac{n(r)}{n(r)-m} \cdot \Big( \frac{r_0}{r} \Big)^{m} \right] \, ,
+\end{equation}
+%
+where
+%
+\begin{equation}
+    n(r) = \beta + 4.0 \cdot \Big( \frac{r}{r_0} \Big)^2
+\end{equation}
+%
+and $r = R_{i,j}$ is the distance between carbon atom $i$ and nitrogen atom $j$. The parameters $r_0$, $\epsilon$ and $\beta$ are set according to the atoms interacting, while $m$ is set according the to the partial charges of the interacting species.
+The induction potential term for a $\text{N}_3^-$ anion interacting with carbon atoms is given by (in meV)
+%
+\begin{equation}
+    V_{ind}(R_{i,1},R_{i,2},R_{i,3}) = - 7200 \cdot \alpha_c \cdot \frac{n_2(R_{i,2})}{n_2(R_{i,2}) - 4}
+                        \left[ \frac{q_1}{R_{i,1}^2} + \frac{q_2}{R_{i,2}^2} + \frac{q_3}{R_{i,3}^2} \right]^2 \, ,
+\end{equation}
+%
+where $R_{i,1}$, $R_{i,2}$ and $R_{i,3}$ are the distances between the carbon atom $i$ and the three nitrogen atoms, $q_1$, $q_2$ and $q_3$ are the partial charges on the nitrogen atoms, $\alpha_c$ is the polarizability of the carbon atoms and $n_2(R_{i,2})$ is equal to $n(r)$ using $r_0$ according to the interaction between $C-N_2$.\\
+The interaction energy between a trinitrogen anion confined inside a carbon nanotube is given by
+%
+\begin{align}
+    E_{int} = \sum_{i=1}^{N_C} V_{ILJ}^{C-N_{1,3}}(R_{i,1}) + V_{ILJ}^{C-N_{2}}(R_{i,2}) V_{ILJ}^{C-N_{1,3}}(R_{i,3}) + V_{ind}(R_{i,1},R_{i,2},R_{i,3}) \, ,
+\end{align}
+%
+where $N_C$ corresponds to the total number of carbon atoms, the ILJ potentials $V_{ILJ}^{C-N_{1,3}}$ and $V_{ILJ}^{C-N_{2}}$ are defined according to the parameters given in \Cref{tab:ILJ_parms} and the polarizability $\alpha_c$ appearing in $V_{ind}$ is set to $1.2$, the partial charges as $q_1 = q_3 = -0.56$ and $q_2 = 0.12$ and finally the term $\tfrac{n_2}{n_2 - 4}$ is simplified to $1.0$ for the time being.
+%
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l|cccc}
+        atom types      & $\epsilon$  & $r_0$     & $\beta$ & $m$ \\
+        \midrule
+        C-\ce{N_{1,3}}  & 5.205       & 3.994     & 6--9    & 6.0 \\
+        C-\ce{N_{2}}    & 3.536       & 3.828     & 6--9    & 6.0 \\
+    \end{tabular}
+    \caption{ILJ parameters for the interaction of $\text{N}_3^-$ confined inside a carbon nanotube. Different values of $\beta$ are tested.}
+    \label{tab:ILJ_parms}
+\end{table}
+%
+\Cref{tab:eint_geo_1_ind_1} shows the interaction energies computed using the above formula and different values of $\beta$ for a representative geometry.
+%
+\begin{table}
+    \centering
+    \begin{tabular}{l|rrrr}
+        $E_{int}$            & $\beta = 6.0$ & $\beta = 7.0$ & $\beta = 8.0$ & $\beta = 9.0$ \\
+        \midrule
+        $V_{ILJ}$ [meV]      &  -569.17      &  -517.63      &  -462.66      &  -403.66      \\
+        $V_{ILJ}$ [kcal/mol] &   -13.12      &   -11.94      &   -10.67      &    -9.31      \\
+        $V_{ind}$ [meV]      & -2493.52      & -2493.52      & -2493.52      & -2493.52      \\
+        $V_{ind}$ [kcal/mol] &   -57.50      &   -57.50      &   -57.50      &   -57.50      \\
+        \midrule
+        $E_{int}$ [meV]      & -3062.68      & -3011.15      & -2956.18      & -2897.18      \\
+        $E_{int}$ [kcal/mol] &   -70.63      &   -69.44      &   -68.17      &   -66.81
+    \end{tabular}
+    \caption{Interaction energies computed using ILJ and the induction term for different $\beta$ values. The term $\tfrac{n_2}{n_2 - 4}$ in the induction potential was kept fixed equal one. The reference MP2 value is -32.31 kcal/mol (-1401.13 meV).}
+    \label{tab:eint_geo_1_ind_1}
+\end{table}
+%
+A second series of test has been done by resetting the term $\tfrac{n_2}{n_2 - 4}$, which depends on $\beta$ and therefore will change accordingly.
+\Cref{tab:eint_geo_1_ind_beta} shows the results in this case.
+%
+\begin{table}
+    \centering
+    \begin{tabular}{l|rrrr}
+        $E_{int}$            & $\beta = 6.0$ & $\beta = 7.0$ & $\beta = 8.0$ & $\beta = 9.0$ \\
+        \midrule
+        $V_{ILJ}$ [meV]      &  -569.17      &  -517.63      &  -462.66      &  -403.66      \\
+        $V_{ILJ}$ [kcal/mol] &   -13.12      &   -11.94      &   -10.67      &    -9.31      \\
+        $V_{ind}$ [meV]      & -4033.24      & -3818.14      & -3657.00      & -3531.54      \\
+        $V_{ind}$ [kcal/mol] &   -93.01      &   -88.05      &   -84.33      &   -81.44      \\
+        \midrule
+        $E_{int}$ [meV]      & -4602.40      & -4335.77      & -4119.67      & -3935.20      \\
+        $E_{int}$ [kcal/mol] &  -106.13      &   -99.98      &   -95.00      &   -90.75
+    \end{tabular}
+    \caption{Interaction energies computed using ILJ and the induction term for different $\beta$ values. The term $\tfrac{n_2}{n_2 - 4}$ in the induction potential was let free to vary. The reference MP2 value is -32.31 kcal/mol (-1401.13 meV).}
+    \label{tab:eint_geo_1_ind_beta}
+\end{table}
+
+\end{document}
