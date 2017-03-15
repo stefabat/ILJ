@@ -5,10 +5,10 @@ include("xyz_parser.jl")
 # Define parameters
 ϵ_C_N1 = 5.205; ϵ_C_N2 = 3.536;
 r0_C_N1 = 3.994; r0_C_N2 = 3.818;
-β_C_N1 = 9.0; β_C_N2 = 9.0;
+β_C_N1 = 8.0; β_C_N2 = 8.0;
 m_C_N1 = 6.0; m_C_N2 = 6.0;
 #q1 = -0.56; q2 = +0.12; q3 = -0.56;
-q1 = -0.51; q2 = -0.01; q3 = -0.51;
+q1 = -0.51; q2 = 0.02; q3 = -0.51;
 α_c = 1.2
 
 # Define ILJ potentials
@@ -19,7 +19,7 @@ ILJ_C_N2 = ILJ_kernel(ϵ_C_N2, r0_C_N2, β_C_N2, m_C_N2)
 ind_C_N = N3_induction_kernel(r0_C_N2, β_C_N2,q1, q2, q3, α_c)
 
 # Read geometry
-atom_types,atom_coords = xyz_parser("data/n3_t555_1.xyz")
+atom_types,atom_coords = xyz_parser("data/n3_t665_unrelaxed.xyz")
 
 C_idx  = find(x -> x == "C",atom_types)
 N1_idx = find(x -> x == "N1",atom_types)
