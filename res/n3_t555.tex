@@ -46,47 +46,110 @@ where $N_C$ corresponds to the total number of carbon atoms, the ILJ potentials 
     \label{tab:ILJ_parms}
 \end{table}
 %
-\Cref{tab:eint_geo_1_ind_1} shows the interaction energies computed using the above formula and different values of $\beta$ for a representative geometry.
-%
-\begin{table}
-    \centering
-    \begin{tabular}{l|rrrr}
-        $E_{int}$            & $\beta = 6.0$ & $\beta = 7.0$ & $\beta = 8.0$ & $\beta = 9.0$ \\
-        \midrule
-        $V_{ILJ}$ [meV]      &  -569.17      &  -517.63      &  -462.66      &  -403.66      \\
-        $V_{ILJ}$ [kcal/mol] &   -13.12      &   -11.94      &   -10.67      &    -9.31      \\
-        $V_{ind}$ [meV]      & -2493.52      & -2493.52      & -2493.52      & -2493.52      \\
-        $V_{ind}$ [kcal/mol] &   -57.50      &   -57.50      &   -57.50      &   -57.50      \\
-        \midrule
-        $E_{int}$ [meV]      & -3062.68      & -3011.15      & -2956.18      & -2897.18      \\
-        $E_{int}$ [kcal/mol] &   -70.63      &   -69.44      &   -68.17      &   -66.81
-    \end{tabular}
-    \caption{Interaction energies computed using ILJ and the induction term for different $\beta$ values. The term $\tfrac{n_2}{n_2 - 4}$ in the induction potential was kept fixed equal one. The reference MP2 value is -32.31 kcal/mol (-1401.13 meV).}
-    \label{tab:eint_geo_1_ind_1}
-\end{table}
-%
-A second series of test has been done by resetting the term $\tfrac{n_2}{n_2 - 4}$, which depends on $\beta$ and therefore will change accordingly.
-\Cref{tab:eint_geo_1_ind_beta} shows the results in this case.
-%
-\begin{table}
-    \centering
-    \begin{tabular}{l|rrrr}
-        $E_{int}$            & $\beta = 6.0$ & $\beta = 7.0$ & $\beta = 8.0$ & $\beta = 9.0$ \\
-        \midrule
-        $V_{ILJ}$ [meV]      &  -569.17      &  -517.63      &  -462.66      &  -403.66      \\
-        $V_{ILJ}$ [kcal/mol] &   -13.12      &   -11.94      &   -10.67      &    -9.31      \\
-        $V_{ind}$ [meV]      & -4033.24      & -3818.14      & -3657.00      & -3531.54      \\
-        $V_{ind}$ [kcal/mol] &   -93.01      &   -88.05      &   -84.33      &   -81.44      \\
-        \midrule
-        $E_{int}$ [meV]      & -4602.40      & -4335.77      & -4119.67      & -3935.20      \\
-        $E_{int}$ [kcal/mol] &  -106.13      &   -99.98      &   -95.00      &   -90.75
-    \end{tabular}
-    \caption{Interaction energies computed using ILJ and the induction term for different $\beta$ values. The term $\tfrac{n_2}{n_2 - 4}$ in the induction potential was let free to vary. The reference MP2 value is -32.31 kcal/mol (-1401.13 meV).}
-    \label{tab:eint_geo_1_ind_beta}
-\end{table}
-%
-A third series of calculations has been performed using NBO charges calculated on the MP2 density; namely $q_1 = q_3 = -0.51$ and $q_2 = -0.01$. Note that the total charge on the trinitrogen anion is not exactly $-1$, but a tiny donation from the nanotube to the confined molecule has occurred. The results for this charge distributions are not listed because for both cases considered above, the resulting interaction energies are constantly lower (i.e. more favorable) by about 4 to 6 kcal/mol.\\
+In case of large polarization (large partial charges), the electrostatic interaction between interaction centers has to be taken into account. The fact that we have a charged species ($\text{N}_3^-$), enhances the polarization and it really needs to be taken into account.\\
 \\
-Maybe we should consider the partial charges also on the nanotube? In particular, the carbon atoms on the edges passivated by the hydrogen atoms show a large polarization, the carbons are charged by $-0.21$ and the hydrogens by $0.23$.
+Since the aim is to fit the potential to the max interaction energy only (i.e. to fit the well depth $\epsilon$), a very accurate value for this interaction energy is required. In order to do so, an elaborate scheme is required, which involves several steps.\\
+%
+\begin{enumerate}
+    \item Geometry relaxation of the complex system and the monomers. The nanotube length is only 3 units, otherwise there are too many basis functions
+    \begin{enumerate}
+        \item Using one pure functional among PBE, B97 and TPSS
+        \item Using Grimme dispersion with Becke and Johnson damping (D3BJ)
+        \item Using the cc-pvtz basis set on the CNT and the aug-cc-pvtz on the nitrogen (diffuse functions also on the tube lead to linear dependence)
+        \item Now testing density fitting in Gaussian, if much faster, we use also that for the pure functional with the universal def2/j basis set
+        \item Using one hybrid functional among B3LYP, APFD, what else?
+    \end{enumerate}
+    \item All the geometry calculations are performed in Gaussian
+    \item To obtain accurate interaction energies, there is a total of 7 single point calculations to be performed
+    \begin{enumerate}
+        \item Complex at the complex geometry in the full basis
+        \item First monomer at the complex geometry in the full basis
+        \item First monomer at the complex geometry in the monomer basis
+        \item First monomer at the monomer geometry in the monomer basis
+        \item Second monomer at the complex geometry in the full basis
+        \item Second monomer at the complex geometry in the monomer basis
+        \item Second monomer at the monomer geometry in the monomer basis
+    \end{enumerate}
+    \item The series of 7 calculations just listed has to be done for two basis sets, to be able to extrapolate the results at CBS limit
+    \item The extrapolation schemes are different for SCF and correlated calculations, therefore they can be done separately
+    \item For the SCF extrapolation, we can compute in Gaussian using triple and quadruple zeta basis sets
+    \item For the correlated extrapolation, we can compute in ORCA using double and triple zeta basis sets (which will give us also dz scf points)
+    \item The SCF in this case does not use the RI approximation for both Gaussian and ORCA
+    \item The correlated method is the DLPNO-CCSD(T)
+    \item Partial charges have to be obtained and there are many ways to do it. First of all, we need to decide which density to use
+    \begin{enumerate}
+        \item The density (relaxed, unrelaxed, linearized?) of the DLPNO-CCSD(T) method (I do not know how much expensive it is)
+        \item Find a DFT functional in which we can trust (how?) and use its density
+        \item Use the density of DLPNO-SCS-MP2 if it reproduces well the CCSD(T) one. But the same problem as above (relaxed, unrelaxed, linearized? Expensive?)
+    \end{enumerate}
+    \item Once we know which density we want to use, calculate the charges
+    \begin{enumerate}
+        \item NPA charges from NBO analysis
+        \item MESP derived charges
+        \item Many other possibilities...
+    \end{enumerate}
+    \item Calculate multipole moments with the charges obtained and compare them with the moments obtained from the calculation
+\end{enumerate}
+%
+The above computational scheme will provide a very accurate interaction energy and can be ideally applied to different systems. The major pitfall of the above procedure, is the very first step, i.e. the geometry optimization.
+%
+\begin{enumerate}
+    \item The functional used for the geometry optimization might give wrong conformations
+    \item One should optimize the geometry using a wf method, but if it is too expensive we cannot
+    \item Moreover there are a plethora of minima in the PES, several starting geometries have to be relaxed and compared with each other
+\end{enumerate}
+%
+\medskip
+With the interaction energy and the partial charges, we can tune the ILJ potential such that it reproduces the interaction energy obtained with the above scheme.\\
+\newline
+There is a large amount of arbitrariness in this procedure to obtain the ILJ potential.
+The partial charges calculated are in principle arbitrary and considering them explicitly enhances the complexity of the problem. In particular, the charges will certainly vary depending on the length of the nanotube. This means that if we would like to use longer CNTs in the MD simulation, then the tuned ILJ potential which includes explicitly the charges might not be valid anymore.
+I believe that therefore we cannot pursue this approach.\\
+A possible solution would be to fit the ILJ potential to a series of calculations of the complex system at different conformations. In this way, the electrostatic effects would be implicitly taken care of in the fitting procedure. Nonetheless, for such a fit, the above procedure is certainly to expensive and one should come up with a reasonable approximation.\\
+Another possibility is to neglect completely the electrostatic term in the potential and tune it just according dispersion and induction forces. This is basically the same as the above solution, but without fitting the entire potential and only relying on the single interaction energy value.\\
+A last idea is to assume that in the limit of a very long nanotube, the polarization far away from the nanotube ends is minimal and has to be taken care only locally around the azide anion. This would mean that the partial charges are assigned only locally around the azide anion and they would need to be approximated in some way. One such way is to compute them for a nanotube of increasing length and observe how they change. If the change is minimal, they can be safely assumed to remain so for any length, if this is not the case, then probably this idea is not feasible.
+
+
+
+% \Cref{tab:eint_geo_1_ind_1} shows the interaction energies computed using the above formula and different values of $\beta$ for a representative geometry.
+% %
+% \begin{table}
+%     \centering
+%     \begin{tabular}{l|rrrr}
+%         $E_{int}$            & $\beta = 6.0$ & $\beta = 7.0$ & $\beta = 8.0$ & $\beta = 9.0$ \\
+%         \midrule
+%         $V_{ILJ}$ [meV]      &  -569.17      &  -517.63      &  -462.66      &  -403.66      \\
+%         $V_{ILJ}$ [kcal/mol] &   -13.12      &   -11.94      &   -10.67      &    -9.31      \\
+%         $V_{ind}$ [meV]      & -2493.52      & -2493.52      & -2493.52      & -2493.52      \\
+%         $V_{ind}$ [kcal/mol] &   -57.50      &   -57.50      &   -57.50      &   -57.50      \\
+%         \midrule
+%         $E_{int}$ [meV]      & -3062.68      & -3011.15      & -2956.18      & -2897.18      \\
+%         $E_{int}$ [kcal/mol] &   -70.63      &   -69.44      &   -68.17      &   -66.81
+%     \end{tabular}
+%     \caption{Interaction energies computed using ILJ and the induction term for different $\beta$ values. The term $\tfrac{n_2}{n_2 - 4}$ in the induction potential was kept fixed equal one. The reference MP2 value is -32.31 kcal/mol (-1401.13 meV).}
+%     \label{tab:eint_geo_1_ind_1}
+% \end{table}
+% %
+% A second series of test has been done by resetting the term $\tfrac{n_2}{n_2 - 4}$, which depends on $\beta$ and therefore will change accordingly.
+% \Cref{tab:eint_geo_1_ind_beta} shows the results in this case.
+% %
+% \begin{table}
+%     \centering
+%     \begin{tabular}{l|rrrr}
+%         $E_{int}$            & $\beta = 6.0$ & $\beta = 7.0$ & $\beta = 8.0$ & $\beta = 9.0$ \\
+%         \midrule
+%         $V_{ILJ}$ [meV]      &  -569.17      &  -517.63      &  -462.66      &  -403.66      \\
+%         $V_{ILJ}$ [kcal/mol] &   -13.12      &   -11.94      &   -10.67      &    -9.31      \\
+%         $V_{ind}$ [meV]      & -4033.24      & -3818.14      & -3657.00      & -3531.54      \\
+%         $V_{ind}$ [kcal/mol] &   -93.01      &   -88.05      &   -84.33      &   -81.44      \\
+%         \midrule
+%         $E_{int}$ [meV]      & -4602.40      & -4335.77      & -4119.67      & -3935.20      \\
+%         $E_{int}$ [kcal/mol] &  -106.13      &   -99.98      &   -95.00      &   -90.75
+%     \end{tabular}
+%     \caption{Interaction energies computed using ILJ and the induction term for different $\beta$ values. The term $\tfrac{n_2}{n_2 - 4}$ in the induction potential was let free to vary. The reference MP2 value is -32.31 kcal/mol (-1401.13 meV).}
+%     \label{tab:eint_geo_1_ind_beta}
+% \end{table}
+% %
+% A third series of calculations has been performed using NBO charges calculated on the MP2 density; namely $q_1 = q_3 = -0.51$ and $q_2 = -0.01$. Note that the total charge on the trinitrogen anion is not exactly $-1$, but a tiny donation from the nanotube to the confined molecule has occurred. The results for this charge distributions are not listed because for both cases considered above, the resulting interaction energies are constantly lower (i.e. more favorable) by about 4 to 6 kcal/mol.
 
 \end{document}
