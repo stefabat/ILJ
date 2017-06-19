@@ -109,6 +109,51 @@ A possible solution would be to fit the ILJ potential to a series of calculation
 Another possibility is to neglect completely the electrostatic term in the potential and tune it just according dispersion and induction forces. This is basically the same as the above solution, but without fitting the entire potential and only relying on the single interaction energy value.\\
 A last idea is to assume that in the limit of a very long nanotube, the polarization far away from the nanotube ends is minimal and has to be taken care only locally around the azide anion. This would mean that the partial charges are assigned only locally around the azide anion and they would need to be approximated in some way. One such way is to compute them for a nanotube of increasing length and observe how they change. If the change is minimal, they can be safely assumed to remain so for any length, if this is not the case, then probably this idea is not feasible.
 
+\section{Azide Anion}
+
+\begin{table}
+    \centering
+    \begin{tabular}{c|ccc}
+        Method      & $r_{NN}$  & Q$_{1,3}$ & Q$_2$ \\
+        \midrule
+
+        Expt.\cite{Polak1987} & $1.1884$  & -         & -
+    \end{tabular}
+\end{table}
+
+
+
+\begin{table}
+    \centering
+    \begin{tabular}{r ccc}
+        \toprule
+        Method   & 3-CNT     & 5-CNT     & 7-CNT \\
+        \midrule
+        RI-B97D3 & $-30.80$  & $-38.29$  & $-$   \\
+        APFD     & $-$       & $-$     & $-$   \\
+        RI-MP2   & $-$       & $-$     & $-$   \\
+        \bottomrule
+    \end{tabular}
+    \caption{CP-corrected unrelaxed interaction energies of N$_3^-$ confined inside a $(5,5)$ SWCNT of increasing length. The azide anion is placed perfectly in the center of the nanotube, parallel to the principal axis. The basis set use is the cc-pvtz with the addition of diffuse functions (aug-) on the anion. All energies are given in kcal/mol.}
+\label{tab:eint_cnt55x_cc-pvtz}
+\end{table}
+
+\begin{table}
+    \centering
+    \begin{tabular}{r ccc}
+        \toprule
+        Method   & 3-CNT     & 5-CNT     & 7-CNT \\
+        \midrule
+        RI-B97D3 & $-26.26$  & $-33.97$  & $-$   \\
+        APFD     & $-$       & $-$     & $-$   \\
+        RI-MP2   & $-$       & $-$     & $-$   \\
+        \bottomrule
+    \end{tabular}
+    \caption{CP-corrected unrelaxed interaction energies of N$_3^-$ confined inside a $(5,5)$ SWCNT of increasing length. The azide anion is placed perfectly in the center of the nanotube, parallel to the principal axis. The basis set use is the cc-pvdz on the nanotube and the aug-cc-pvtz on the anion. All energies are given in kcal/mol.}
+\label{tab:eint_cnt55x_cc-pvtz}
+\end{table}
+
+
 
 
 % \Cref{tab:eint_geo_1_ind_1} shows the interaction energies computed using the above formula and different values of $\beta$ for a representative geometry.
@@ -151,5 +196,8 @@ A last idea is to assume that in the limit of a very long nanotube, the polariza
 % \end{table}
 % %
 % A third series of calculations has been performed using NBO charges calculated on the MP2 density; namely $q_1 = q_3 = -0.51$ and $q_2 = -0.01$. Note that the total charge on the trinitrogen anion is not exactly $-1$, but a tiny donation from the nanotube to the confined molecule has occurred. The results for this charge distributions are not listed because for both cases considered above, the resulting interaction energies are constantly lower (i.e. more favorable) by about 4 to 6 kcal/mol.
+
+\bibliographystyle{unsrt}
+\bibliography{library}
 
 \end{document}
