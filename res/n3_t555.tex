@@ -4,6 +4,27 @@
 
 \begin{document}
 
+\section{Computational Details}
+
+\subsection{Ab-initio}
+In this work, the $(5,5)$ armchair carbon nanotubes have been treated as finite-size systems, with the addition of hydrogen atoms at both ends in order to complete the valence shell.
+The nanotubes geometries have been optimized at DFT level of theory, employing the B97D3 exchange-correlation functional\cite{Grimme2010} in conjunction with the correlation consistent cc-pvtz gaussian basis set\cite{DunningJr1989}.
+All the optimized structures retained their high symmetry, formally belonging to the $D_{5d}$ molecular point group.
+Since nanotubes of different lengths have been considered throughout the work, we introduce the notation $\Lambda - \text{CNT}(5,5)$ to label a nanotube composed by $\Lambda$ [$10$]cyclophenacene units (cf. \Cref{}).
+The C--C bonds parallel and perpendicular to the principal axis show the alternation pattern typical of these systems when treated as finite clusters\cite{Zhou2004,Galano2006}.\\
+The geometry of the N$_3^-$ azide anion has been optimized at DFT level of theory too, with the same functional, but in conjunction with the augmented version of the Dunning basis set, the aug-cc-pvtz in order to better describe the more diffuse electron density.
+The N--N bond length measures $1.1874$ \AA and is in excellent agreement with the experimental value obtained in gas phase of $1.1884$ \AA\cite{Polak1987}.
+The geometry optimizations of the fragments alone have been performed with the Gaussian 09 software package, revision d01\cite{g09}, using the default convergence thresholds and the ultrafine grid for the functional integral calculation.
+
+\subsubsection{N$_3^-$ inside CNT$(5,5)$}
+It has been recently shown\cite{Battaglia2017a} that the interaction between the two fragments does not change significantly their structure.
+Therefore, the optimal adsorption distance between the azide anion and the inner wall of the carbon nanotube has been obtained by relaxing all internal coordinates connecting the two fragments, while keeping frozen those strictly belonging to the monomers only.
+To ensure that the relaxation process did not remain trapped in a local minimum and without knowing a priori the optimal adsorption site of the N$_3^-$ molecule, the optimization procedure has been started from three different geometries corresponding to different possible adsorption sites, depicted in \Cref{}.
+The relaxation has been performed at density functional theory level using the B97D3 functional with the cc-pvdz basis set on the carbon nanotube and the aug-cc-pvtz on the N$_3^-$. The RI approximation has been used to compute the Coulomb part, with the universal fitting basis set def2/j\cite{weige}
+
+
+
+\subsection{Molecular Dynamics}
 The Improved Lennard-Jones (ILJ) potential is given by
 %
 \begin{equation}
@@ -109,50 +130,57 @@ A possible solution would be to fit the ILJ potential to a series of calculation
 Another possibility is to neglect completely the electrostatic term in the potential and tune it just according dispersion and induction forces. This is basically the same as the above solution, but without fitting the entire potential and only relying on the single interaction energy value.\\
 A last idea is to assume that in the limit of a very long nanotube, the polarization far away from the nanotube ends is minimal and has to be taken care only locally around the azide anion. This would mean that the partial charges are assigned only locally around the azide anion and they would need to be approximated in some way. One such way is to compute them for a nanotube of increasing length and observe how they change. If the change is minimal, they can be safely assumed to remain so for any length, if this is not the case, then probably this idea is not feasible.
 
-\section{Azide Anion}
+%
+% \begin{table}
+    % \centering
+    % \begin{tabular}{c|ccc}
+        % Method      & $r_{NN}$  & Q$_{1,3}$ & Q$_2$ \\
+        % \midrule
+        % Exp.\cite{Polak1987} & $1.1884$  & -         & -
+    % \end{tabular}
+% \end{table}
+%
 
-\begin{table}
-    \centering
-    \begin{tabular}{c|ccc}
-        Method      & $r_{NN}$  & Q$_{1,3}$ & Q$_2$ \\
-        \midrule
-
-        Expt.\cite{Polak1987} & $1.1884$  & -         & -
-    \end{tabular}
-\end{table}
-
-
-
-\begin{table}
-    \centering
-    \begin{tabular}{r ccc}
-        \toprule
-        Method   & 3-CNT     & 5-CNT     & 7-CNT \\
-        \midrule
-        RI-B97D3 & $-30.80$  & $-38.29$  & $-$   \\
-        APFD     & $-$       & $-$     & $-$   \\
-        RI-MP2   & $-$       & $-$     & $-$   \\
-        \bottomrule
-    \end{tabular}
-    \caption{CP-corrected unrelaxed interaction energies of N$_3^-$ confined inside a $(5,5)$ SWCNT of increasing length. The azide anion is placed perfectly in the center of the nanotube, parallel to the principal axis. The basis set use is the cc-pvtz with the addition of diffuse functions (aug-) on the anion. All energies are given in kcal/mol.}
-\label{tab:eint_cnt55x_cc-pvtz}
-\end{table}
-
+%
 \begin{table}
     \centering
     \begin{tabular}{r ccc}
         \toprule
-        Method   & 3-CNT     & 5-CNT     & 7-CNT \\
+        $\Lambda$-CNT & 3-CNT     & 5-CNT     & 7-CNT    \\
+        occ./virt.    & 260/2800  & 380/4000  & 500/5200 \\
         \midrule
-        RI-B97D3 & $-26.26$  & $-33.97$  & $-$   \\
-        APFD     & $-$       & $-$     & $-$   \\
-        RI-MP2   & $-$       & $-$     & $-$   \\
+        RI-B97D3      & $-30.80$  & $-38.29$  & $-42.58$ \\
+        \textit{Time} & 27m       & 50m       & 1h20m    \\
+        \vspace{1mm} \\
+        RI-SCS-MP2    & $-34.56$  & $-43.36$  & $-$      \\
+        \textit{Time} & 8h        & 36h (8cpus) & $-$    \\
         \bottomrule
     \end{tabular}
-    \caption{CP-corrected unrelaxed interaction energies of N$_3^-$ confined inside a $(5,5)$ SWCNT of increasing length. The azide anion is placed perfectly in the center of the nanotube, parallel to the principal axis. The basis set use is the cc-pvdz on the nanotube and the aug-cc-pvtz on the anion. All energies are given in kcal/mol.}
+    \caption{CP-corrected unrelaxed interaction energies of N$_3^-$ confined inside a $(5,5)$ SWCNT of increasing length. The azide anion is placed perfectly in the center of the nanotube, parallel to the principal axis. The basis set use is the \textbf{cc-pvtz} with the addition of diffuse functions (aug-) on the anion. All energies are given in kcal/mol.}
 \label{tab:eint_cnt55x_cc-pvtz}
 \end{table}
-
+%
+\begin{table}
+    \centering
+    \begin{tabular}{r cccc}
+        \toprule
+        $\Lambda$-CNT & 3-CNT     & 5-CNT     & 7-CNT      & 9-CNT    \\
+        occ./virt.    & 260/1400  & 380/1900  & 500/2500   & 620/3000 \\
+        \midrule
+        RI-B97D3      & $-26.26$  & $-33.97$  & $-38.50$   & $-41.85$ \\
+        \textit{Time} & 9m        & 20m       & 33m        & 45m \\
+        \vspace{1mm} \\
+        RI-SCS-MP2    & $-29.77$  & $-38.87$  & $-43.58$   & $-47.07$ \\
+        \textit{Time} & 1h40m     & 6h        & 10h        & 24h \\
+        \vspace{1mm} \\
+        DLPNO-CCSD    & $-$       & $-$       & $-$        & $-$ \\
+        \textit{Time} & est. 36h  & $-$       & $-$        & $-$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{CP-corrected unrelaxed interaction energies of N$_3^-$ confined inside a $(5,5)$ SWCNT of increasing length. The azide anion is placed perfectly in the center of the nanotube, parallel to the principal axis. The basis set use is the \textbf{cc-pvdz} on the nanotube and the aug-cc-pvtz on the anion. All energies are given in kcal/mol.}
+\label{tab:eint_cnt55x_cc-pvdz}
+\end{table}
+%
 
 
 
