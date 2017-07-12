@@ -2,21 +2,26 @@
 
 %%%%%%%%%%%%%% My packages %%%%%%%%%%%%%%
 \usepackage[a4paper]{geometry}      % Finer control over the document formatting
-\usepackage{authblk}                % Provide \affil command in preamble
+% \usepackage{authblk}                % Provide \affil command in preamble
 \usepackage{amsmath}				% Support for all that is mathematics
 \usepackage{cleveref}               % Provide smart references (Use: \Cref{} or \cref{}) TO PUT AFTER AMSMATH
 \usepackage{graphicx}				% Provide support to include figures
 \usepackage{color}                  % Provide colored text (Use: \color{red}{bla bla bla}) AND required for gnuplot figures
-\usepackage[version=4]{mhchem}    % Chemical formulas (Use: \ce{{3^}A^1_2} \ce{D_{nh}} \ce{H2O})
+\usepackage[utf8]{inputenc}
+% \usepackage[version=4]{mhchem}      % Chemical formulas (Use: \ce{{3^}A^1_2} \ce{D_{nh}} \ce{H2O})
 \usepackage{booktabs}				% Provide rules for tables (Use: \toprule, \midurle, \bottomrule)
-\usepackage{doi}
 % \usepackage{cancel}               % Cancel terms in equations (Use: \cancel{2x}, \cancelto{0}{2x})
 % \usepackage[textsize=scriptsize]{todonotes}     % Add easy todo notes in the margin (Use: \todo{blabla})
 % \usepackage{braket}               % Provide bra, ket and braket notations (Use: \bra{\Psi})
-% \usepackage{subcaption}           % Provide \subfigure env to have more figure side by side with combined captions
+\usepackage{subcaption}             % Provide \subfigure env to have more figure side by side with combined captions
 % \usepackage[parfill]{parskip}		% Remove indentation at the beginning of the paragraph
 % \usepackage{transparent}			% To have transparency from imported Inkscape figures
 % \usepackage{graphbox}				% Provide option [align=c] in \includegraphics to vertically align text
+% \usepackage{doi}
 % \usepackage{minipage}
+\usepackage{multirow}
 % \usepackage[backend=biber,style=numeric-comp,bibstyle=chem-angew,maxcitenames=2]{biblatex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%% newcommands %%%%%
+\newcommand{\ntm}{$\text{N}_3^-$ }

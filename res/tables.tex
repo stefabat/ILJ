@@ -1,0 +1,130 @@
+\def\btab#1#2{\expandafter\gdef\csname tab-#1\endcsname{\begin{table}[ht]#2\label{#1}\end{table}}}
+\def\tref#1{\csname tab-#1\endcsname\Cref{#1}}
+
+\btab{tab:geom_comp}{
+    \centering
+    \begin{tabular}{crrrrr}
+        \toprule
+        \textit{$\Lambda$} & site & $d_{cm}$ (\AA) & $r_{axis}$ (\AA) & $\theta$ ($^{\circ}$) & $\Delta E_{int}$ (kcal/mol) \\
+        \midrule
+        \multirow{3}{*}{3} & \textit{bond} & $ 0.018$ & $ 0.002$ & $0.06$ & $-0.001$ \\
+        ~ & \textit{hollow}                & $ 0.002$ & $ 0.003$ & $0.04$ & $ 0.000$ \\
+        ~ & \textit{zigzag}                & $ 0.000$ & $ 0.003$ & $0.27$ & $-0.002$ \\
+        \midrule
+        \multirow{3}{*}{5} & \textit{bond} & $ 0.604$ & $ 0.009$ & $0.32$ & $ 0.112$ \\
+        ~ & \textit{hollow}                & $-0.144$ & $ 0.002$ & $0.32$ & $ 0.017$ \\
+        ~ & \textit{zigzag}                & $ 0.000$ & $ 0.003$ & $0.43$ & $ 0.000$ \\
+        \midrule
+        \multirow{3}{*}{7} & \textit{bond} & $ 0.470$ & $ 0.029$ & $1.10$ & $ 0.588$ \\
+        ~ & \textit{hollow}                & $-0.233$ & $ 0.027$ & $0.54$ & $ 0.417$ \\
+        ~ & \textit{zigzag}                & $ 0.001$ & $ 0.038$ & $0.18$ & $ 0.363$ \\
+        \midrule
+        \multirow{3}{*}{9} & \textit{bond} & $ 0.622$ & $ 0.015$ & $0.74$ & $ 0.400$ \\
+        ~ & \textit{hollow}                & $-1.304$ & $ 0.003$ & $0.17$ & $ 0.030$ \\
+        ~ & \textit{zigzag}                & $-0.007$ & $ 0.004$ & $0.53$ & $ 0.141$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{Geometrical parameters and interaction energy difference with respect to the (c) geometry. Note that the $d_{cm}$, $r_{axis}$ and $\theta$ are all zero for the (c) geometry.}
+}
+
+\btab{tab:int_ene_rel_geo}{
+    \centering
+    \begin{tabular}{cccc}
+        \toprule
+        ~ & \multicolumn{3}{c}{starting site} \\
+        % \cline{2-4} \\
+        $\Lambda$ & bond & hollow & zigzag \\
+        \midrule
+        \bottomrule
+    \end{tabular}
+}
+
+\btab{tab:eint_cnt55x_cc-pvtz}{
+    \centering
+    \begin{tabular}{r ccccc}
+        \toprule
+        $\Lambda$-CNT & 3-CNT     & 5-CNT     & 7-CNT     & 9-CNT    & 11-CNT   \\
+        occ./virt.    & 260/2800  & 380/4000  & 500/5200  & 620/6400 & 740/7600 \\
+        \midrule
+        RI-B97D3      & $-30.80$  & $-38.29$  & $-42.58$  & $-45.73$ & $-$ \\
+        \textit{Time} & 27m       & 50m       & 1h20m     & 2h20m    & h   \\
+        \vspace{1mm} \\
+        RI-SCS-MP2    & $-34.56$  & $-43.36$  & $-$       & $-$      & $-$ \\
+        \textit{Time} & 8h        & 36h (8cpus) & $-$     & $-$      & $-$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{CP-corrected unrelaxed interaction energies of N$_3^-$ confined inside a $(5,5)$ SWCNT of increasing length. The azide anion is placed perfectly in the center of the nanotube, parallel to the principal axis. The basis set use is the \textbf{cc-pvtz} with the addition of diffuse functions (aug-) on the anion. All energies are given in kcal/mol.}
+}
+
+\btab{tab:eint_cnt55x_cc-pvdz}{
+    \centering
+    \begin{tabular}{r cccccc}
+        \toprule
+        $\Lambda$-CNT & 3-CNT     & 5-CNT     & 7-CNT     & 9-CNT    & 11-CNT   & 13-CNT   \\
+        occ./virt.    & 260/1400  & 380/1900  & 500/2500  & 620/3000 & 740/3600 & 860/4150 \\
+        \midrule
+        RI-B97D3      & $-26.26$  & $-33.97$  & $-38.50$  & $-41.85$ & $-44.36$ & $-46.36$ \\
+        \textit{Time} & 9m        & 20m       & 33m       & 45m      & 62m      & 1h25m    \\
+        \vspace{1mm} \\
+        RI-SCS-MP2    & $-29.77$  & $-38.87$  & $-43.58$  & $-47.07$ & $-$    & \\
+        \textit{Time} & 1h40m     & 6h        & 10h       & 24h      &  h     & \\
+        \vspace{1mm} \\
+        DLPNO-CCSD    & $-$       & $-$       & $-$       & $-$      & $-$    & \\
+        \textit{Time} & est. 36h  & $-$       & $-$       & $-$      & $-$    & \\
+        \bottomrule
+    \end{tabular}
+    \caption{CP-corrected unrelaxed interaction energies of N$_3^-$ confined inside a $(5,5)$ SWCNT of increasing length. The azide anion is placed perfectly in the center of the nanotube, parallel to the principal axis. The basis set use is the \textbf{cc-pvdz} on the nanotube and the aug-cc-pvtz on the anion. All energies are given in kcal/mol.}
+}
+
+\btab{tab:ILJ_parms}{
+    \centering
+    \begin{tabular}{l|cccc}
+        atom types      & $\epsilon$  & $r_0$     & $\beta$ & $m$ \\
+        \midrule
+        C-\ce{N_{1,3}}  & 5.205       & 3.994     & 6--9    & 6.0 \\
+        C-\ce{N_{2}}    & 3.536       & 3.828     & 6--9    & 6.0 \\
+    \end{tabular}
+    \caption{ILJ parameters for the interaction of $\text{N}_3^-$ confined inside a carbon nanotube. Different values of $\beta$ are tested.}
+}
+
+
+% \Cref{tab:eint_geo_1_ind_1} shows the interaction energies computed using the above formula and different values of $\beta$ for a representative geometry.
+% %
+% \begin{table}
+%     \centering
+%     \begin{tabular}{l|rrrr}
+%         $E_{int}$            & $\beta = 6.0$ & $\beta = 7.0$ & $\beta = 8.0$ & $\beta = 9.0$ \\
+%         \midrule
+%         $V_{ILJ}$ [meV]      &  -569.17      &  -517.63      &  -462.66      &  -403.66      \\
+%         $V_{ILJ}$ [kcal/mol] &   -13.12      &   -11.94      &   -10.67      &    -9.31      \\
+%         $V_{ind}$ [meV]      & -2493.52      & -2493.52      & -2493.52      & -2493.52      \\
+%         $V_{ind}$ [kcal/mol] &   -57.50      &   -57.50      &   -57.50      &   -57.50      \\
+%         \midrule
+%         $E_{int}$ [meV]      & -3062.68      & -3011.15      & -2956.18      & -2897.18      \\
+%         $E_{int}$ [kcal/mol] &   -70.63      &   -69.44      &   -68.17      &   -66.81
+%     \end{tabular}
+%     \caption{Interaction energies computed using ILJ and the induction term for different $\beta$ values. The term $\tfrac{n_2}{n_2 - 4}$ in the induction potential was kept fixed equal one. The reference MP2 value is -32.31 kcal/mol (-1401.13 meV).}
+%     \label{tab:eint_geo_1_ind_1}
+% \end{table}
+% %
+% A second series of test has been done by resetting the term $\tfrac{n_2}{n_2 - 4}$, which depends on $\beta$ and therefore will change accordingly.
+% \Cref{tab:eint_geo_1_ind_beta} shows the results in this case.
+% %
+% \begin{table}
+%     \centering
+%     \begin{tabular}{l|rrrr}
+%         $E_{int}$            & $\beta = 6.0$ & $\beta = 7.0$ & $\beta = 8.0$ & $\beta = 9.0$ \\
+%         \midrule
+%         $V_{ILJ}$ [meV]      &  -569.17      &  -517.63      &  -462.66      &  -403.66      \\
+%         $V_{ILJ}$ [kcal/mol] &   -13.12      &   -11.94      &   -10.67      &    -9.31      \\
+%         $V_{ind}$ [meV]      & -4033.24      & -3818.14      & -3657.00      & -3531.54      \\
+%         $V_{ind}$ [kcal/mol] &   -93.01      &   -88.05      &   -84.33      &   -81.44      \\
+%         \midrule
+%         $E_{int}$ [meV]      & -4602.40      & -4335.77      & -4119.67      & -3935.20      \\
+%         $E_{int}$ [kcal/mol] &  -106.13      &   -99.98      &   -95.00      &   -90.75
+%     \end{tabular}
+%     \caption{Interaction energies computed using ILJ and the induction term for different $\beta$ values. The term $\tfrac{n_2}{n_2 - 4}$ in the induction potential was let free to vary. The reference MP2 value is -32.31 kcal/mol (-1401.13 meV).}
+%     \label{tab:eint_geo_1_ind_beta}
+% \end{table}
+% %
+% A third series of calculations has been performed using NBO charges calculated on the MP2 density; namely $q_1 = q_3 = -0.51$ and $q_2 = -0.01$. Note that the total charge on the trinitrogen anion is not exactly $-1$, but a tiny donation from the nanotube to the confined molecule has occurred. The results for this charge distributions are not listed because for both cases considered above, the resulting interaction energies are constantly lower (i.e. more favorable) by about 4 to 6 kcal/mol.
