@@ -41,16 +41,16 @@
 
 \btab{tab:eint_cnt55x_cc-pvtz}{
     \centering
-    \begin{tabular}{r ccccc}
+    \begin{tabular}{r cccccc}
         \toprule
-        $\Lambda$-CNT & 3-CNT     & 5-CNT     & 7-CNT     & 9-CNT    & 11-CNT   \\
-        occ./virt.    & 260/2800  & 380/4000  & 500/5200  & 620/6400 & 740/7600 \\
+        $\Lambda$-CNT & 3-CNT     & 5-CNT     & 7-CNT     & 9-CNT    & 11-CNT   & 13-CNT   \\
+        occ./virt.    & 260/2800  & 380/4000  & 500/5200  & 620/6400 & 740/7600 & 860/8800 \\
         \midrule
-        RI-B97D3      & $-30.80$  & $-38.29$  & $-42.58$  & $-45.73$ & $-$ \\
-        \textit{Time} & 27m       & 50m       & 1h20m     & 2h20m    & h   \\
+        RI-B97D3      & $-30.80$  & $-38.29$  & $-42.58$  & $-45.73$ & $-48.06$ & $-49.94$ \\
+        \textit{Time} & 27m       & 50m       & 1h20m     & 2h20m    & 4h12m    & 7h35m    \\
         \vspace{1mm} \\
-        RI-SCS-MP2    & $-34.56$  & $-43.36$  & $-$       & $-$      & $-$ \\
-        \textit{Time} & 8h        & 36h (8cpus) & $-$     & $-$      & $-$ \\
+        RI-SCS-MP2    & $-34.56$  & $-43.36$  & $-$       & $-$      & $-$      & $-$ \\
+        \textit{Time} & 8h        & 36h (8cpus) & $-$     & $-$      & $-$      & $-$ \\
         \bottomrule
     \end{tabular}
     \caption{CP-corrected unrelaxed interaction energies of N$_3^-$ confined inside a $(5,5)$ SWCNT of increasing length. The azide anion is placed perfectly in the center of the nanotube, parallel to the principal axis. The basis set use is the \textbf{cc-pvtz} with the addition of diffuse functions (aug-) on the anion. All energies are given in kcal/mol.}
@@ -66,11 +66,11 @@
         RI-B97D3      & $-26.26$  & $-33.97$  & $-38.50$  & $-41.85$ & $-44.36$ & $-46.36$ \\
         \textit{Time} & 9m        & 20m       & 33m       & 45m      & 62m      & 1h25m    \\
         \vspace{1mm} \\
-        RI-SCS-MP2    & $-29.77$  & $-38.87$  & $-43.58$  & $-47.07$ & $-$    & \\
-        \textit{Time} & 1h40m     & 6h        & 10h       & 24h      &  h     & \\
+        RI-SCS-MP2    & $-29.77$  & $-38.87$  & $-43.58$  & $-47.07$ & $-49.88$ & $-$ \\
+        \textit{Time} & 1h40m     & 6h        & 10h       & 24h      & 50h20m   & $-$ \\
         \vspace{1mm} \\
-        DLPNO-CCSD    & $-$       & $-$       & $-$       & $-$      & $-$    & \\
-        \textit{Time} & est. 36h  & $-$       & $-$       & $-$      & $-$    & \\
+        DLPNO-CCSD(T) & $-31.96$  & $-$       & $-$       & $-$      & $-$      & $-$ \\
+        \textit{Time} & 28h       & $-$       & $-$       & $-$      & $-$      & $-$ \\
         \bottomrule
     \end{tabular}
     \caption{CP-corrected unrelaxed interaction energies of N$_3^-$ confined inside a $(5,5)$ SWCNT of increasing length. The azide anion is placed perfectly in the center of the nanotube, parallel to the principal axis. The basis set use is the \textbf{cc-pvdz} on the nanotube and the aug-cc-pvtz on the anion. All energies are given in kcal/mol.}

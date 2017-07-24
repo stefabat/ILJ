@@ -14,6 +14,9 @@
 
 \author{Stefano Battaglia}
 
+\renewcommand\familydefault{\sfdefault}
+\everymath{\mathsf{\xdef\mysf{\mathgroup\the\mathgroup\relax}}\mysf}
+
 \begin{document}
 
 \maketitle
@@ -54,8 +57,8 @@ and corrected for the basis set superposition error according to the Boys and Be
 Note that although geometry optimizations have been carried out on the complex systems, the geometry of the two fragments was kept frozen at the optimal fragment conformation, thus the value obtained from \Cref{eq:eint} is only the interaction energy and not the binding energy of the system (i.e. it does not account for deformation effects).\\
 The four parameters computed for all systems are listed in \tref{tab:geom_comp}. Since the (c) geometry consists in the azide ion sitting in the exact center of the nanotube, the three conformational parameters are all zero in this case, thus for geometries (b), (h) and (z), the parameters can be considered as differences from the (c) geometry. Accordingly, instead of tabulating the interaction energy for every geometry, the values listed in the last column of \Cref{tab:geom_comp} correspond to the interaction energy difference between the (c) geometry and the other three, i.e. $\Delta E_{int} = E_{int}(c) - E_{int}(site)$. A negative value for $\Delta E_{int}$ means that the interaction energy is more favorable (i.e. stronger) for the (c) geometry, while a positive value the opposite.\\
 For all final geometries, the azide anion is found to be almost perfectly aligned to the principal axis of the nanotube since the angle $\theta$ is always very small (below $1^{\circ}$ except in one case), confirming the results presented in \cite{Battaglia2017a}.
-Similarly, $r_{axis}$ is also always particularly small (most of the times below $0.01$\AA), meaning that the anion has the preference to stay approximately at the same distance from the nanotube wall in all directions.
-In particular, independently from the length $\Lambda$, the azide ion is adsorbed at a distance of approximately $3.34$\AA\ (computed as the distance between the \ntm center of mass and the closest side of the wall). This value is significantly larger than the adsorption distance of $3.17$\AA\ found for the confinement in a larger 3-CNT(6,6), obtained following the same computational procedure.
+Similarly, $r_{axis}$ is also always particularly small (most of the times below $0.01$ \AA), meaning that the anion has the preference to stay approximately at the same distance from the nanotube wall in all directions.
+In particular, independently from the length $\Lambda$, the azide ion is adsorbed at a distance of approximately $3.34$ \AA\ (computed as the distance between the \ntm center of mass and the closest side of the wall). This value is significantly larger than the adsorption distance of $3.17$ \AA\ found for the confinement in a larger 3-CNT(6,6), obtained following the same computational procedure.
 There are two possible explanations for the difference in the adsorption distance. Either the different curvature of the two nanotubes is such that the forces attracting the ion are stronger in the case of the (6,6) CNT, or in the case of the (5,5) CNT, there is a competition between the attractive forces exerted by the surrounding wall on the azide ion, which eventually stabilizes it at an (almost) equal radial distance in any direction.
 The analysis of the curvature effects on the adsorption distance inside the CNT are beyond the scope of this work, and thus not further investigated here [maybe there are refs for other systems, probably H2 and H2O].
 The most fluctuating parameter is $d_{cm}$. Clearly, the periodic atomic pattern of the carbon nanotube makes the potential energy surface (PES) of the complex full of local minima, all of which approximately share the same well depth. Apart from the (z) conformation, for which $d_{cm}$ remains virtually unchanged irrespective of the length, it is hard to rationalize the results for the (b) and (h) cases.

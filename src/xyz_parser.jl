@@ -1,9 +1,10 @@
-# Simple xyz parser
+include("molecule.jl")
 
-function xyz_parser(filename)
-    if ! isfile(filename)
+# Function to parse an xyz file
+function readxyz(filename)
+    if !isfile(filename)
         throw(ArgumentError("The file does not exist!"))
-    elseif ! endswith(filename,".xyz")
+    elseif !endswith(filename,".xyz")
         throw(ArgumentError("The file has to be a .xyz file!"))
     end
     f = open(filename,"r")
@@ -16,19 +17,32 @@ function xyz_parser(filename)
     atom_types  = convert(Array{String,1}, atoms[:,1])
     atom_coords = convert(Array{Float64,2}, atoms[:,2:end])
 
-    return atom_types,atom_coords
+    return Molecule(n_atoms, atom_types, atom_coords, zeros(n_atoms,1))
 end
 
+
+# Check if dependency is satisfied
+#if ! isdefined(:PyCall)
+#  try
+#    println("Loading the PyCall module...")
+#    using PyCall
+#  catch
+#    error("You need to install the PyCall module using 'Pkg.add("PyCall")'!")
+#  end
+#end
+
 using PyCall
+# Import cclib to parse gaussian log file
 @pyimport cclib.parser as ccp
 
-function read_pcharges(gaus_out, charges_type = "natural")
-    if ! isfile(gaus_out)
+# Function to read atomic charges from Gaussian log files
+function atomic_charges(log_file, charges = "natural")
+    if ! isfile(log_file)
         throw(ArgumentError("The file does not exist!"))
-    elseif ! endswith(gaus_out,".log")
+    elseif ! endswith(log_file,".log")
         throw(ArgumentError("The file has to be a .log file!"))
     end
-    p = ccp.Gaussian(gaus_out)
+    p = ccp.Gaussian(log_file)
     data = p[:parse]()
-    return data[:atomcharges][charges_type]
+    return data[:atomcharges][charges]
 end
