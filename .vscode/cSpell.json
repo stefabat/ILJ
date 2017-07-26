@@ -7,14 +7,16 @@
     // words - list of words to be always considered correct
     "words": [
         "APFD",
-        "Unrelaxed",
         "SWCNT",
-        "pvtz",
+        "Unrelaxed",
+        "cyclophenacene",
         "kcal",
         "nanotube",
         "nanotubes",
-        "cyclophenacene",
-        "parametrized"
+        "parametrized",
+        "polarizability",
+        "pvtz",
+        "trinitrogen"
     ],
     // flagWords - list of words to be always considered incorrect
     // This is useful for offensive words and common spelling errors.

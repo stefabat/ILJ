@@ -114,3 +114,18 @@ function fit_corr(X,energies)
 
 end
 
+# Fit CCSD(T) energies assuming correlation error between
+# MP2 and CCSD(T) is basis set independent
+function fit_ccsdt(e_ccsdt, e_mp2, e_mp2_cbs)
+
+  println("\nExtrapolating using the formula:\n
+          E(CCSD(T),CBS) = E(CCSD(T),X) - E(MP2,X) + E(MP2,CBS) \n")
+
+  E_CBS = e_ccsdt - e_mp2 + e_mp2_cbs
+
+  @printf("X = X %14s %16.8f Eh\n","Energy:",e_ccsdt)
+  @printf("X = CBS %12s %16.8f Eh\n","Energy:",E_CBS)
+
+  return E_CBS
+
+end

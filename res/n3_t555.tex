@@ -14,9 +14,6 @@
 
 \author{Stefano Battaglia}
 
-\renewcommand\familydefault{\sfdefault}
-\everymath{\mathsf{\xdef\mysf{\mathgroup\the\mathgroup\relax}}\mysf}
-
 \begin{document}
 
 \maketitle
@@ -65,6 +62,8 @@ The most fluctuating parameter is $d_{cm}$. Clearly, the periodic atomic pattern
 The only exception is found for the 3-CNT(5,5), where the two open ends of the nanotube are so close that the energy barriers to move away from the center are particularly steep.
 Nonetheless, although the evident difference between the final geometries, the effect observed on the interaction energy, which is our first and most important parameter that we are interested in, is minimal and, importantly, below chemical accuracy ($\approx 1$ kcal/mol).
 As it appears a very hard task to find the \textit{global minimum} for this type of systems and considering the small influence observed on the interaction energy as well as remembering that the accuracy of classical parametrized potentials is well below the differences $\Delta E_{int}$ listed in \Cref{tab:geom_comp} [maybe ref?], the central geometry (c) will be used for all interaction energies computed in this work at a higher level of theory or for nanotubes longer than $\Lambda = 9$.
+%%%%
+An extensive test on the dependence of the length of the nanotube and the basis set size with respect to the interaction energy has been performed. In \fref{fig:n3t55x_eint} we see the resulting values.
 
 
 \subsection{Molecular Dynamics}
@@ -72,7 +71,7 @@ The Improved Lennard-Jones (ILJ) potential is given by
 %
 \begin{equation}
     V_{ILJ}(r) = \epsilon \left[ \frac{m}{n(r)-m} \cdot \Big( \frac{r_0}{r} \Big)^{n(r)} -
-                                 \frac{n(r)}{n(r)-m} \cdot \Big( \frac{r_0}{r} \Big)^{m} \right] \, ,
+                                 \frac{n(r)}{n(r)-m} \cdot \Big( \frac{r_0}{r} \Big)^{m} \right]
 \end{equation}
 %
 where
@@ -82,24 +81,40 @@ where
 \end{equation}
 %
 and $r = R_{i,j}$ is the distance between carbon atom $i$ and nitrogen atom $j$. The parameters $r_0$, $\epsilon$ and $\beta$ are set according to the atoms interacting, while $m$ is set according the to the partial charges of the interacting species.
-The induction potential term for a $\text{N}_3^-$ anion interacting with carbon atoms is given by (in meV)
+The induction potential term for a $\text{N}_3^-$ anion interacting with carbon atoms is given by
 %
 \begin{equation}
-    V_{ind}(R_{i,1},R_{i,2},R_{i,3}) = - 7200 \cdot \alpha_c \cdot \frac{n_2(R_{i,2})}{n_2(R_{i,2}) - 4}
-                        \left[ \frac{q_1}{R_{i,1}^2} + \frac{q_2}{R_{i,2}^2} + \frac{q_3}{R_{i,3}^2} \right]^2 \, ,
+    V_{ind}(R_{i,1},R_{i,2},R_{i,3}) = - \frac{1}{2} \cdot \alpha_C \cdot \frac{n(R_{i,2})}{n(R_{i,2}) - 4}
+                        \left[ \frac{Q_{N_1}}{R_{i,1}^2} + \frac{Q_{N_2}}{R_{i,2}^2} + \frac{Q_{N_3}}{R_{i,3}^2} \right]^2
 \end{equation}
 %
-where $R_{i,1}$, $R_{i,2}$ and $R_{i,3}$ are the distances between the carbon atom $i$ and the three nitrogen atoms, $q_1$, $q_2$ and $q_3$ are the partial charges on the nitrogen atoms, $\alpha_c$ is the polarizability of the carbon atoms and $n_2(R_{i,2})$ is equal to $n(r)$ using $r_0$ according to the interaction between $C-N_2$.\\
-The interaction energy between a trinitrogen anion confined inside a carbon nanotube is given by
+where $R_{i,1}$, $R_{i,2}$ and $R_{i,3}$ are the distances between the carbon atom $i$ and the three nitrogen atoms, $Q_{N_1}$, $Q_{N_2}$ and $Q_{N_3}$ are the partial charges on the nitrogen atoms, $\alpha_C$ is the polarizability of the carbon atoms and $n(R_{i,2})$ is equal to $n(r)$ using $r_0$ according to the interaction between $C-N_2$.\\
+Because we are using a finite-size model for the carbon nanotube, saturated with hydrogen atoms at the two ends, the nanotube wall is polarized.
+The interaction between the azide anion and the nanotube contains therefore a significant electrostatic contribution, which cannot be neglected.
+The electrostatic potential term is given by the following formula
+%
+\begin{equation}
+    V_{els}(R_{i,j}) = \sum_{i,j} \frac{Q_i Q_j}{R_{i,j}}
+\end{equation}
+%
+where the sum runs over all atoms of the two fragments and takes into account all pairwise electrostatic interactions between them.
+The total interaction energy between the azide anion confined inside a carbon nanotube is given by
 %
 \begin{align}
-    E_{int} = \sum_{i=1}^{N_C} V_{ILJ}^{C-N_{1,3}}(R_{i,1}) + V_{ILJ}^{C-N_{2}}(R_{i,2}) V_{ILJ}^{C-N_{1,3}}(R_{i,3}) + V_{ind}(R_{i,1},R_{i,2},R_{i,3}) \, ,
+    E_{int} = \Bigg[ \sum_{i=1}^{N_C} V_{ind}(R_{i,1},R_{i,2},R_{i,3}) +
+              \sum_{j=1}^{N_N} V_{ILJ}^{C-N_{j}}(R_{i,j}) + V_{els}(R_{i,j}) \Bigg] +
+              \sum_{k=1}^{N_H} \sum_{j=1}^{N_N} V_{els}(R_{k,j})
 \end{align}
 %
-where $N_C$ corresponds to the total number of carbon atoms, the ILJ potentials $V_{ILJ}^{C-N_{1,3}}$ and $V_{ILJ}^{C-N_{2}}$ are defined according to the parameters given in \Cref{tab:ILJ_parms} and the polarizability $\alpha_c$ appearing in $V_{ind}$ is set to $1.2$, the partial charges as $q_1 = q_3 = -0.56$ and $q_2 = 0.12$ and finally the term $\tfrac{n_2}{n_2 - 4}$ is simplified to $1.0$ for the time being.
-%
-In case of large polarization (large partial charges), the electrostatic interaction between interaction centers has to be taken into account. The fact that we have a charged species ($\text{N}_3^-$), enhances the polarization and it really needs to be taken into account.\\
-\\
+where $N_C$, $N_N$ and $N_H$ correspond to the total number of carbon, nitrogen and hydrogen atoms, respectively.
+The ILJ potential $V_{ILJ}^{C-N_j}$ is defined according to the parameters given in \tref{tab:ILJ_parms} and the polarizability $\alpha_C$ appearing in $V_{ind}$ is set to $1.2$, the partial charges as $Q_{N_1} = Q_{N_3} = -0.56$ and $Q_{N_2} = 0.12$ and finally the term $\tfrac{n}{n - 4}$ is assumed to be $1.0$ for the time being.\\
+In order to test the performance of the classical potential, we have computed the interaction energy between the azide anion and a short 3-CNT(5,5) nanotube at \textit{ab-intio} level and compared it with the result obtained by the potential, as shown in \tref{tab:n3_t553_ILJ_eint}.\\
+Similarly, we have compared the interaction energies for the confinement in a longer 5-CNT(5,5), listed in \tref{tab:n3_t555_ILJ_eint}.
+Moreover, \tref{tab:n3_t557_ILJ_eint}, \tref{tab:n3_t559_ILJ_eint} and \tref{tab:n3_t5511_ILJ_eint} list the results for longer nanotubes.
+A comparison of the interaction energy computed by different dft functionals is listed in \tref{tab:n3_t553_dft_comp}, while a comparison of the electrostatic term with respect to the basis set used in the calculation can be seen in \tref{tab:els_basis_comp}.
+
+\clearpage
+%%%%%%%%%%%%%%%%
 Since the aim is to fit the potential to the max interaction energy only (i.e. to fit the well depth $\epsilon$), a very accurate value for this interaction energy is required. In order to do so, an elaborate scheme is required, which involves several steps.\\
 %
 \begin{enumerate}
