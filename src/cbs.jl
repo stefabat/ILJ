@@ -65,10 +65,10 @@ function fit_scf(X,energies,basis)
   
   if length(xn) == 2
     #model(x, p) = p[1] + p[2]*exp(-a.*sqrt(x))
-    fit = curve_fit((x,p)->p[1] + p[2]*exp(-a.*sqrt(x)) ,xn,energies,p0)
+    fit = curve_fit((x,p)->p[1] + p[2]*exp.(-a.*sqrt.(x)) ,xn,energies,p0)
   elseif length(xn) == 3
     #model(x, p) = p[1] + p[2]*exp(-p[3].*sqrt(x))
-    fit = curve_fit((x,p)->p[1] + p[2]*exp(-p[3].*sqrt(x)),xn,energies,p0)
+    fit = curve_fit((x,p)->p[1] + p[2]*exp.(-p[3].*sqrt.(x)),xn,energies,p0)
   else
     error("Contact the developer")
   end

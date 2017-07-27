@@ -3,23 +3,26 @@
 # here ϵ is expected to be in meV
 # out put is in meV units
 function ILJ_kernel(ϵ, r0, β, m)
+    if ϵ == 0
+        return r -> 0.0
+    end
     n(r) = β + 4.0*(r/r0)^2
     return r -> ϵ * ( m/(n(r)-m)*(r0/r)^n(r) - n(r)/(n(r)-m)*(r0/r)^m )
 end
 
 # Specific induction kernel for the azide anion and carbon
 # factor -1/2 in front is for the formula [Kaplan]
-# α_C is supposed to be in Ang^3, charges in au units
+# α is supposed to be in Ang^3, charges in au units
 # distances in Ang
 # output is in meV units
-function N3m_C_induction_kernel(α_C, Q_N_1, Q_N_2, Q_N_3, factor = 1.0)
-    return (R_i1, R_i2, R_i3) -> -0.5*1000*toev/tobohr * α_C * factor * ( Q_N_1/(R_i1^2) + Q_N_2/(R_i2^2) + Q_N_3/(R_i3^2) )^2
+function N3m_induction_kernel(α, Q_N_1, Q_N_2, Q_N_3, factor = 1.0)
+    return (R_i1, R_i2, R_i3) -> -0.5*1000*toev/tobohr * α * factor * ( Q_N_1/(R_i1^2) + Q_N_2/(R_i2^2) + Q_N_3/(R_i3^2) )^2
 end
 
 # multiple dispatch
-function N3m_C_induction_kernel(α_C, Q_N_1, Q_N_2, Q_N_3, β, r0)
+function N3m_induction_kernel(α, Q_N_1, Q_N_2, Q_N_3, β, r0)
     n(r) = β + 4.0*(r/r0)^2
-    return (R_i1, R_i2, R_i3) -> -0.5*1000*toev/tobohr * α_C * n(R_i2)/(n(R_i2)-4) * ( Q_N_1/(R_i1^2) + Q_N_2/(R_i2^2) + Q_N_3/(R_i3^2) )^2
+    return (R_i1, R_i2, R_i3) -> -0.5*1000*toev/tobohr * α * n(R_i2)/(n(R_i2)-4) * ( Q_N_1/(R_i1^2) + Q_N_2/(R_i2^2) + Q_N_3/(R_i3^2) )^2
 end
 
 # General electrostatic kernel
