@@ -1,0 +1,34 @@
+NOTE: extrapolating the individual energies and then compute the interaction energy is the same
+      as extrapolating directly the interaction energies... Therefore I only did this for the
+      shortest nanotube!
+
+----------------
+COMPLEX ENERGIES
+----------------
+X           RHF               SCS-MP2         TOT-SCS-MP2       DLPNO-CCSD(T)     TOT-DLPNO-CCSD(T)
+2           -3204.64330468    -10.367409746   -3215.01071443    -11.430287415     -3216.073592095
+3           -3205.32120261    -12.585941245   -3217.90714386
+CBS(2/3)    -3205.54166602    -13.93362768    -3219.4752937     -14.99650535      -3220.53817137
+
+-------------
+T553 ENERGIES
+-------------
+X           RHF               SCS-MP2         TOT-SCS-MP2       DLPNO-CCSD(T)     TOT-DLPNO-CCSD(T)
+2           -3041.34669080    -9.789259254    -3051.135950054   -10.819012169     -3052.165702969
+3           -3041.98406979    -11.900912521   -3053.884982311
+CBS(2/3)    -3042.19135578    -13.18367388    -3055.37502966    -14.21342680      -3056.40478258
+
+------------
+N3- ENERGIES
+------------
+X           RHF               SCS-MP2         TOT-SCS-MP2       DLPNO-CCSD(T)     TOT-DLPNO-CCSD(T)
+2           -163.30297402     -0.528857238    -163.831831258    -0.558954997      -163.861929017
+3           -163.33545897     -0.631691372    -163.967150342
+CBS(2/3)    -163.34602360     -0.69415980     -164.0401834      -0.72425756       -164.07028116
+
+--------------------------------
+INTERACTION ENERGIES AT CBS(2/3)
+--------------------------------
+SCS-MP2:        -37.70
+DLPNO-CCSD(T):  -39.60
+

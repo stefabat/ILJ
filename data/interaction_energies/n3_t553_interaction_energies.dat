@@ -1,0 +1,16 @@
+NOTE: interaction energies for DLPNO-CCSD(T)/X are estimated using the formula
+
+          E_ccsdt(X) ~ E_scs-mp2(X) + [E_ccsdt(DZP) - E_scs-mp2(DZP)]
+      
+      i.e. assuming the correlation energy difference between scs-mp2 and
+      dlpno-ccsd(t) does not depende on the basis set
+
+--------------------
+INTERACTION ENERGIES
+--------------------
+X             RHF               SCS-MP2           TOT-SCS-MP2       DLPNO-CCSD(T)       TOT-DLPNO-CCSD(T)
+2              3.99104891       -30.9319901       -26.94094119      -32.83145852        -28.84040961
+3             -1.05035694       -33.46970042      -34.52005736      (-35.36916884)      (-36.41952578)
+4             -2.53558432       -34.13632771      -36.67191203      (-36.03579613)      (-38.57138045)
+CBS(2/3)      -2.68990397       -35.01127771      -37.70118168      (-36.91074613)      (-39.60065010)
+CBS(3/4)      -2.98308916       -34.62278546      -37.60587462
