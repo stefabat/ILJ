@@ -10,7 +10,7 @@
 \input{figures}
 \input{tables}
 
-\title{\LARGE Static and Dynamic of the Azide Anion Confined in an Armchair Carbon Nanotube}
+\title{\LARGE Static and Dynamics of the Azide Anion Confined in an Armchair Carbon Nanotube}
 
 \author{Stefano Battaglia}
 
@@ -18,52 +18,65 @@
 
 \maketitle
 
+\section{Introduction}
+Introduction
+
 \section{Computational Details}
+The computational details section is divided in two parts.
+The first one describes the details of the \textit{ab-initio} calculations performed in order to obtain accurate interaction energies and partial atomic charges of the two fragments.
+The second one describes the analytical potential employed in the molecular dynamics (MD) simulations and assesses its performance against the \textit{ab-initio} values.
 
-\subsection{Ab-initio}
-In this work, the $(5,5)$ armchair carbon nanotubes have been treated as finite-size systems, with the addition of hydrogen atoms at both ends in order to complete the valence shell.
-The nanotubes geometries have been optimized at DFT level of theory, employing the B97D3 exchange-correlation functional\cite{Grimme2010} in conjunction with the correlation consistent cc-pvtz gaussian basis set\cite{DunningJr1989}.
-All the optimized structures retained their high symmetry, formally belonging to the $D_{5d}$ molecular point group.
-Since nanotubes of different lengths have been considered throughout the work, we introduce the notation $\Lambda$-CNT$(5,5)$ to label a nanotube composed by $\Lambda$ [$10$]cyclophenacene units (cf. [cite]).
-The C--C bonds parallel (C--C$_{\parallel}$) and perpendicular (C--C$_{\perp}$) to the principal axis show the alternation pattern typical of these systems when treated as finite clusters\cite{Zhou2004,Galano2006}.\\
-The geometry of the N$_3^-$ azide anion has been optimized at DFT level of theory too, with the same functional, but in conjunction with the augmented version of the Dunning basis set, the aug-cc-pvtz in order to better describe the more diffuse electron density.
-The N--N bond length measures $1.1874$ \AA and is in excellent agreement with the experimental value obtained in gas phase of $1.1884$ \AA\cite{Polak1987}.
-The geometry optimizations of the fragments alone have been performed with the Gaussian 09 software package, revision d01\cite{g09}, using the default convergence thresholds and the ultrafine grid for the functional integral calculation.
 
-\subsubsection{Azide anion inside CNT}
-It has been recently shown\cite{Battaglia2017a} that the interaction between the two fragments does not change significantly their structure and that the completely relaxed complex structure is found to be with the azide anion sitting in the center of the nanotube, aligned to the principal axis.
-Therefore, the optimal adsorption distance between the azide anion and the inner wall of the carbon nanotube has been obtained by relaxing all internal coordinates connecting the two fragments, while keeping frozen those strictly belonging to the monomers only.
-To ensure that the relaxation process did not remain trapped in a local minimum and without knowing a priori the optimal adsorption distance of the N$_3^-$ molecule, the optimization procedure has been started from four different geometries.
-In all cases, the anion has been placed parallel to the principal axis of the nanotube.
-Three starting geometries were chosen according to possible ``adsorption'' sites in which the central nitrogen atom of the azide was placed either over C--C bonds (\textit{bond} (b) and \textit{zigzag} (z) geometries) or in the center of an hexagonal ring of the CNT wall (\textit{hollow} (h) geometry). The three starting sites are shown in \fref{fig:n3t553_start_sites}, along with their labels that will be used in the following to refer to them. For all three cases, the azide anion has been placed at a distance of about $2.25$\AA\ from the nanotube wall, well below the optima adsorption distance.
-The fourth starting geometry is shown in \fref{fig:n3t553_start_center} and it simply consists in the N$_3^-$ anion placed exactly in the center of the nanotube. We will refer to this starting geometry as \textit{central} (c) geometry.
-In order to study the edge effects of the finite nanotube model, CNTs of four different lengths have been considered.
-The relaxation has been performed at density functional theory level using the B97D3 functional with the cc-pvdz basis set on the carbon nanotube and the aug-cc-pvtz on the N$_3^-$. The resolution-of-the-identity (RI) approximation has been used to compute the Coulomb part, adopting the universal fitting basis set def2/j\cite{weigend}. The calculations have been performed using the ORCA 4 program package\cite{ORCA4}.\\
-The relaxed structures starting from the (c) geometry correspond to a (local) minimum, as after one optimization step the convergence is reached, with the \ntm anion insignificantly ($\approx 0.002$\AA) shifted out of the principal axis. For this reason we will consider from now on the (c) geometry as the perfectly aligned anion to the principal axis and sitting in the center of the nanotube.
-For the three other starting conformations, namely the the (b), (h) and (z) geometries, the relaxation leads to different (local) minima.
-In order to analyze the differences in the final structures, three geometrical parameters and an energetic one have been considered.
-The geometrical parameters are depicted in \fref{fig:n3t553_geom_parms} and consist in the axial distance $d_{cm}$ between the center of mass of the azide anion and the center of mass of the carbon nanotube, the radial distance $r_{axis}$ of the azide anion center of mass from the principal axis of the nanotube and the angle $\theta$ formed between the principal axis and an imaginary line passing through the external nitrogen atoms of the azide anion.
-The energetic parameter is the interaction energy $E_{int}$ between the two fragments, computed as
+\subsection{\textit{Ab-Initio}}
+At \textit{ab-initio} level, carbon nanotubes (CNTs) have been treated as finite-size systems and the two open ends have been capped with hydrogen atoms in order to fill out the valence shell. Only one type of armchair nanotube has been considered, with chiral indices $(5,5)$. In order to obtain converged values with respect to the length of the nanotube, CNTs with different number of units have been considered. Therefore, we introduce here the notation $\Lambda$-$(5,5)$CNT to label a nanotube composed by $\Lambda$ units, where a single unit corresponds to a [$10$]cyclophenacene (see FIGURE).
+
+
+\subsubsection{Geometries}
+The geometries of the nanotubes and the azide anion have been optimized using restricted Kohn-Sham density functional theory (DFT), employing the B97D3 exchange-correlation functional with Becke-Johnson damping\cite{Grimme2010,Grimme2011}.
+For both fragments Dunning's triple-$\zeta$ cc-pVTZ basis set\cite{DunningJr1989} has been used, with the addition of diffuse functions (aug-)\cite{Kendall1992} in the case of the \ntm fragment.\\
+The nanotubes geometries retained the high $D_{5d}$ symmetry, with both parallel and perpendicular (to the principal axis) C--C bonds showing the typical alternation pattern of these systems when treated with open boundary conditions\cite{Zhou2004,Galano2006}. As the length of the nanotube increases, the average C--C bond length approaches the experimental value of 1.421 \AA\ [REFERENCE].\\
+The relaxed \ntm geometry has linear $D_{\infty h}$ symmetry, with an N--N bond length of $1.1874$ \AA, which is in excellent agreement with the experimental gas phase value of $1.1884$ \AA\cite{Polak1987}.\\
+All the optimizations have been performed using the Gaussian 09 software package, revision d01\cite{g09}, using the default convergence thresholds, the ultrafine grid for the integral quadrature and spherical harmonics \textit{d} and \textit{f} functions.
+
+
+\subsubsection{Interaction Energies}
+In order to construct the classical force field (cf. Molecular Dynamics section), the most important parameter to obtain is the interaction energy of the the guest \ntm ion and the host carbon nanotube at the optimal adsorption distance.
+In this contribution, all interaction energies computed using first-principles methods have been evaluated according to the formula
 %
 \begin{equation}
-    E_{int} = E_{complex} - (E_{cnt} + E_{azide})
-    \label{eq:eint}
+    E_{int} = E_{complex} - (E_{cnt} + E_{azide}) \label{eq:eint}
 \end{equation}
 %
-and corrected for the basis set superposition error according to the Boys and Bernardi scheme\cite{Boys1970}.
-Note that although geometry optimizations have been carried out on the complex systems, the geometry of the two fragments was kept frozen at the optimal fragment conformation, thus the value obtained from \Cref{eq:eint} is only the interaction energy and not the binding energy of the system (i.e. it does not account for deformation effects).\\
-The four parameters computed for all systems are listed in \tref{tab:geom_comp}. Since the (c) geometry consists in the azide ion sitting in the exact center of the nanotube, the three conformational parameters are all zero in this case, thus for geometries (b), (h) and (z), the parameters can be considered as differences from the (c) geometry. Accordingly, instead of tabulating the interaction energy for every geometry, the values listed in the last column of \Cref{tab:geom_comp} correspond to the interaction energy difference between the (c) geometry and the other three, i.e. $\Delta E_{int} = E_{int}(c) - E_{int}(site)$. A negative value for $\Delta E_{int}$ means that the interaction energy is more favorable (i.e. stronger) for the (c) geometry, while a positive value the opposite.\\
-For all final geometries, the azide anion is found to be almost perfectly aligned to the principal axis of the nanotube since the angle $\theta$ is always very small (below $1^{\circ}$ except in one case), confirming the results presented in \cite{Battaglia2017a}.
-Similarly, $r_{axis}$ is also always particularly small (most of the times below $0.01$ \AA), meaning that the anion has the preference to stay approximately at the same distance from the nanotube wall in all directions.
-In particular, independently from the length $\Lambda$, the azide ion is adsorbed at a distance of approximately $3.34$ \AA\ (computed as the distance between the \ntm center of mass and the closest side of the wall). This value is significantly larger than the adsorption distance of $3.17$ \AA\ found for the confinement in a larger 3-CNT(6,6), obtained following the same computational procedure.
-There are two possible explanations for the difference in the adsorption distance. Either the different curvature of the two nanotubes is such that the forces attracting the ion are stronger in the case of the (6,6) CNT, or in the case of the (5,5) CNT, there is a competition between the attractive forces exerted by the surrounding wall on the azide ion, which eventually stabilizes it at an (almost) equal radial distance in any direction.
-The analysis of the curvature effects on the adsorption distance inside the CNT are beyond the scope of this work, and thus not further investigated here [maybe there are refs for other systems, probably H2 and H2O].
-The most fluctuating parameter is $d_{cm}$. Clearly, the periodic atomic pattern of the carbon nanotube makes the potential energy surface (PES) of the complex full of local minima, all of which approximately share the same well depth. Apart from the (z) conformation, for which $d_{cm}$ remains virtually unchanged irrespective of the length, it is hard to rationalize the results for the (b) and (h) cases.
-The only exception is found for the 3-CNT(5,5), where the two open ends of the nanotube are so close that the energy barriers to move away from the center are particularly steep.
-Nonetheless, although the evident difference between the final geometries, the effect observed on the interaction energy, which is our first and most important parameter that we are interested in, is minimal and, importantly, below chemical accuracy ($\approx 1$ kcal/mol).
-As it appears a very hard task to find the \textit{global minimum} for this type of systems and considering the small influence observed on the interaction energy as well as remembering that the accuracy of classical parametrized potentials is well below the differences $\Delta E_{int}$ listed in \Cref{tab:geom_comp} [maybe ref?], the central geometry (c) will be used for all interaction energies computed in this work at a higher level of theory or for nanotubes longer than $\Lambda = 9$.
+where the fragment energies $E_{cnt}$ and $E_{azide}$ have been computed using the basis set of the complex system, thus correcting the basis set superposition error according to the Boys and Bernardi scheme\cite{Boys1970}.
+Relaxation effects on the two interacting fragments have not been taken into account, although it has been recently shown that these effects contribute only in the order of 1--2 kcal/mol\cite{Battaglia2017a} to $E_{int}$ and thus do not substantially modify the overall picture.\\
+To locate the minimum of the potential energy surface (PES), a series of constrained optimizations involving nanotubes of lengths between 3 and 9 units has been performed. In these optimizations, the optimal geometry of the two fragments has been kept frozen and only their relative distance and orientation have been optimized, thus locating the adsorption distance.
+This series of optimizations has been performed at the same level of theory as before, employing the smaller cc-pVDZ basis set on the nanotube, the resolution of the identity technique with the auxiliary basis def2/J by Weigend \textit{et al.}\cite{Weigend2006}, using the ORCA program package, version 4\cite{ORCA}.\\
+Remarkably, it turns out that in the particular case of an azide anion confined inside a $(5,5)$CNT, the geometry with the \ntm molecule placed exactly in the center of the nanotube, aligned to its principal axis, results to be a local minimum. Moreover, the difference between this minimum and the lowest minimum found is at maximum less than $0.6$ kcal/mol for the nanotubes studied. For this reason, the geometry with the \ntm molecule placed in the center of the CNTs has been used for the calculation of $E_{int}$ at higher levels of theory and for longer nanotubes.
+For a detailed explanation of the structure optimizations, the criteria used to compare the them and all the geometries, we point the reader to the Supplementary Information.\\
+
 %%%%
-An extensive test on the dependence of the length of the nanotube and the basis set size with respect to the interaction energy has been performed. In \fref{fig:n3t55x_eint} we see the resulting values.
+As we are dealing with finite size CNTs, it is important to study the dependence of the interaction energy with respect to the length of the nanotube. In particular, given that the confined species is negatively charged, one expects a slower convergence compared to uncharged systems due to the typically more diffuse electron density of anions.\\
+Accurate interaction energies have been calculated at wave function level of theory, using the spin-component-scaled MP2 method (SCS-MP2)[REFERENCE] and the local coupled cluster method DLPNO-CCSD(T) as implemented in the ORCA 4 program [REFERENCE]. Calculations have been performed using the cc-pVDZ or the cc-pVTZ basis set (where computationally feasible) and in both cases diffuse functions (aug-) have been added on the \ntm ion.\\
+FIGURE X depicts the results obtained for nanotubes of different lengths, where it is immediately clear that interaction energy shows a slow convergence rate with respect to $\Lambda$.
+In order to obtain accurate interaction energies, extrapolated DLPNO-CCSD(T)/cc-pVTZ values have been obtained using the following formula
+%
+\begin{equation}
+    E_{CC}(pVTZ) \approx E_{MP2}(pVTZ) + (E_{CC}(pVDZ) - E_{MP2}(pVDZ)) \label{eq:basis_extr}
+\end{equation}
+%
+where it is assumed that the correlation energy difference between the two methods is constant with respect to the basis set used.
+This approach has allowed us to obtain accurate values for nanotubes of length 3, 5 and 7. Nonetheless, as it can be seen from the RI-SCS-MP2/cc-pVDZ curve in FIGURE X, $E_{int}$ still significantly decreases with the addition of of extra nanotube units.
+Therefore, in order to be able to extrapolate the DLPNO-CCSD(T)/cc-pVTZ confinement energy inside an arbitrary $\Lambda$-(5,5) nanotube we propose the following formula
+%
+\begin{equation}
+    E_{int}(\Lambda) = \frac{a\Lambda}{b + \Lambda} \label{eq:length_extr}
+\end{equation} 
+%
+where $a$ and $b$ are two fitting parameters to be determined.
+\Cref{eq:length_extr} is the simplest formula which satisfies the condition $E_{int}(0) = 0$ and provides and estimates for the infinitely long nanotube through the parameter $a$.\\
+The solid line in FIGURE X shows the fit to the three approximated DLPNO-CCSD(T)/cc-pVTZ interaction energies computed according to \cref{eq:basis_extr}. 
+For a detailed explanation of the parameters used in the calculation and the tests performed to assess the validity of our approach, we point the reader to the Supplementary Information.\\
+In \fref{fig:n3t55x_eint} we see the resulting values.
 
 
 \subsection{Molecular Dynamics}
@@ -110,7 +123,7 @@ where $N_C$, $N_N$ and $N_H$ correspond to the total number of carbon, nitrogen 
 The ILJ potential $V_{ILJ}^{C-N_j}$ is defined according to the parameters given in \tref{tab:ILJ_parms} and the polarizability $\alpha_C$ appearing in $V_{ind}$ is set to $1.2$, the partial charges as $Q_{N_1} = Q_{N_3} = -0.56$ and $Q_{N_2} = 0.12$ and finally the term $\tfrac{n}{n - 4}$ is assumed to be $1.0$ for the time being.\\
 In order to test the performance of the classical potential, we have computed the interaction energy between the azide anion and a short 3-CNT(5,5) nanotube at \textit{ab-intio} level and compared it with the result obtained by the potential, as shown in \tref{tab:n3_t553_ILJ_eint}.\\
 Similarly, we have compared the interaction energies for the confinement in a longer 5-CNT(5,5), listed in \tref{tab:n3_t555_ILJ_eint}.
-Moreover, \tref{tab:n3_t557_ILJ_eint}, \tref{tab:n3_t559_ILJ_eint} and \tref{tab:n3_t5511_ILJ_eint} list the results for longer nanotubes.
+Moreover, \tref{tab:n3_t557_ILJ_eint}, \tref{tab:n3_t559_ILJ_eint}, \tref{tab:n3_t5511_ILJ_eint} and \tref{tab:n3_t5513_ILJ_eint} list the results for longer nanotubes.
 A comparison of the interaction energy computed by different dft functionals is listed in \tref{tab:n3_t553_dft_comp}, while a comparison of the electrostatic term with respect to the basis set used in the calculation can be seen in \tref{tab:els_basis_comp}.
 
 \clearpage
@@ -181,5 +194,39 @@ A last idea is to assume that in the limit of a very long nanotube, the polariza
 
 \bibliographystyle{unsrt}
 \bibliography{library}
+
+\clearpage
+\section{Supplementary Information}
+To ensure that the relaxation process did not remain trapped in a local minimum and without knowing a priori the optimal adsorption distance of the N$_3^-$ molecule, the optimization procedure has been started from four different geometries.
+In all cases, the anion has been placed parallel to the principal axis of the nanotube.
+Three starting geometries were chosen according to possible ``adsorption'' sites in which the central nitrogen atom of the azide was placed either over C--C bonds (\textit{bond} (b) and \textit{zigzag} (z) geometries) or in the center of an hexagonal ring of the CNT wall (\textit{hollow} (h) geometry). The three starting sites are shown in \fref{fig:n3t553_start_sites}, along with their labels that will be used in the following to refer to them. For all three cases, the azide anion has been placed at a distance of about $2.25$\AA\ from the nanotube wall, well below the optimal adsorption distance.
+The fourth starting geometry is shown in \fref{fig:n3t553_start_center} and it simply consists in the N$_3^-$ anion placed exactly in the center of the nanotube. We will refer to this starting geometry as \textit{central} (c) geometry.
+In order to study the edge effects on the position of the minimum, CNTs of four different lengths have been considered, namely with 3, 5, 7 and 9 units.
+The relaxation has been performed again at DFT level using the B97D3 functional, but this time with the smaller cc-pvdz\cite{DunningJr1989} basis set on the carbon nanotube and the aug-cc-pvtz\cite{DunningJr1989} on the N$_3^-$.
+The resolution-of-the-identity (RI) approximation has been used to compute the Coulomb matrix, adopting the universal fitting basis set def2/j\cite{Weigend2006}. The calculations have been performed using the ORCA 4 program package\cite{ORCA4}.\\
+The relaxed structures starting from the (c) geometry correspond to a (local) minimum, as after one optimization step the convergence is reached, with the \ntm anion insignificantly ($\approx 0.002$\AA) shifted out of the principal axis. For this reason we will consider from now on the (c) geometry as the perfectly aligned anion to the principal axis and sitting in the center of the nanotube.
+For the three other starting conformations, namely the the (b), (h) and (z) geometries, the relaxation leads to different (local) minima.
+In order to analyze the differences in the final structures, three geometrical parameters and an energetic one have been considered.
+The geometrical parameters are depicted in \fref{fig:n3t553_geom_parms} and consist in the axial distance $d_{cm}$ between the center of mass of the azide anion and the center of mass of the carbon nanotube, the radial distance $r_{axis}$ of the azide anion center of mass from the principal axis of the nanotube and the angle $\theta$ formed between the principal axis and an imaginary line passing through the external nitrogen atoms of the azide anion.
+The energetic parameter is the interaction energy $E_{int}$ between the two fragments, computed as
+%
+\begin{equation}
+    E_{int} = E_{complex} - (E_{cnt} + E_{azide})
+    \label{eq:eint}
+\end{equation}
+%
+and corrected for the basis set superposition error according to the Boys and Bernardi scheme\cite{Boys1970}.
+Note that although geometry optimizations have been carried out on the complex systems, the geometry of the two fragments was kept frozen at the optimal fragment conformation, thus the value obtained from \Cref{eq:eint} is only the interaction energy and not the binding energy of the system (i.e. it does not account for deformation effects).\\
+The four parameters computed for all systems are listed in \tref{tab:geom_comp}. Since the (c) geometry consists in the azide ion sitting in the exact center of the nanotube, the three conformational parameters are all zero in this case, thus for geometries (b), (h) and (z), the parameters can be considered as differences from the (c) geometry. Accordingly, instead of tabulating the interaction energy for every geometry, the values listed in the last column of \Cref{tab:geom_comp} correspond to the interaction energy difference between the (c) geometry and the other three, i.e. $\Delta E_{int} = E_{int}(c) - E_{int}(site)$. A negative value for $\Delta E_{int}$ means that the interaction energy is more favorable (i.e. stronger) for the (c) geometry, while a positive value the opposite.\\
+For all final geometries, the azide anion is found to be almost perfectly aligned to the principal axis of the nanotube since the angle $\theta$ is always very small (below $1^{\circ}$ except in one case), confirming the results presented in \cite{Battaglia2017a}.
+Similarly, $r_{axis}$ is also always particularly small (most of the times below $0.01$ \AA), meaning that the anion has the preference to stay approximately at the same distance from the nanotube wall in all directions.
+In particular, independently from the length $\Lambda$, the azide ion is adsorbed at a distance of approximately $3.34$ \AA\ (computed as the distance between the \ntm center of mass and the closest side of the wall). This value is significantly larger than the adsorption distance of $3.17$ \AA\ found for the confinement in a larger 3-CNT(6,6), obtained following the same computational procedure.
+There are two possible explanations for the difference in the adsorption distance. Either the different curvature of the two nanotubes is such that the forces attracting the ion are stronger in the case of the (6,6) CNT, or in the case of the (5,5) CNT, there is a competition between the attractive forces exerted by the surrounding wall on the azide ion, which eventually stabilizes it at an (almost) equal radial distance in any direction.
+The analysis of the curvature effects on the adsorption distance inside the CNT are beyond the scope of this work, and thus not further investigated here [maybe there are refs for other systems, probably H2 and H2O].
+The most fluctuating parameter is $d_{cm}$. Clearly, the periodic atomic pattern of the carbon nanotube makes the potential energy surface (PES) of the complex full of local minima, all of which approximately share the same well depth. Apart from the (z) conformation, for which $d_{cm}$ remains virtually unchanged irrespective of the length, it is hard to rationalize the results for the (b) and (h) cases.
+The only exception is found for the 3-CNT(5,5), where the two open ends of the nanotube are so close that the energy barriers to move away from the center are particularly steep.
+Nonetheless, although the evident difference between the final geometries, the effect observed on the interaction energy, which is our first and most important parameter that we are interested in, is minimal and, importantly, below chemical accuracy ($\approx 1$ kcal/mol).
+As it appears a very hard task to find the \emph{global minimum} for this type of systems and considering the small influence observed on the interaction energy as well as remembering that the accuracy of classical parametrized potentials is well below the differences $\Delta E_{int}$ listed in \Cref{tab:geom_comp} [maybe ref?], the central geometry (c) will be used for all interaction energies computed in this work at a higher level of theory and for nanotubes longer than $\Lambda = 9$.\\
+
 
 \end{document}
