@@ -28,7 +28,7 @@ The second one describes the analytical potential employed in the molecular dyna
 
 
 \subsection{\textit{Ab-Initio}}
-At \textit{ab-initio} level, carbon nanotubes (CNTs) have been treated as finite-size systems and the two open ends have been capped with hydrogen atoms in order to fill out the valence shell. Only one type of armchair nanotube has been considered, with chiral indices $(5,5)$. In order to obtain converged values with respect to the length of the nanotube, CNTs with different number of units have been considered. Therefore, we introduce here the notation $\Lambda$-$(5,5)$CNT to label a nanotube composed by $\Lambda$ units, where a single unit corresponds to a [$10$]cyclophenacene (see FIGURE).
+At \textit{ab-initio} level, carbon nanotubes (CNTs) have been treated as finite-size systems and the two open ends have been capped with hydrogen atoms in order to fill out the valence shell. Only one type of armchair nanotube has been considered, with chiral indices $(5,5)$. In order to obtain converged values with respect to the length of the nanotube, CNTs with different number of units have been studied. We introduce here the notation $\Lambda$-$(5,5)$CNT to label a nanotube composed by $\Lambda$ units, where a single unit corresponds to a [$10$]cyclophenacene (see FIGURE).
 
 
 \subsubsection{Geometries}
@@ -36,37 +36,37 @@ The geometries of the nanotubes and the azide anion have been optimized using re
 For both fragments Dunning's triple-$\zeta$ cc-pVTZ basis set\cite{DunningJr1989} has been used, with the addition of diffuse functions (aug-)\cite{Kendall1992} in the case of the \ntm fragment.\\
 The nanotubes geometries retained the high $D_{5d}$ symmetry, with both parallel and perpendicular (to the principal axis) C--C bonds showing the typical alternation pattern of these systems when treated with open boundary conditions\cite{Zhou2004,Galano2006}. As the length of the nanotube increases, the average C--C bond length approaches the experimental value of 1.421 \AA\ [REFERENCE].\\
 The relaxed \ntm geometry has linear $D_{\infty h}$ symmetry, with an N--N bond length of $1.1874$ \AA, which is in excellent agreement with the experimental gas phase value of $1.1884$ \AA\cite{Polak1987}.\\
-All the optimizations have been performed using the Gaussian 09 software package, revision d01\cite{g09}, using the default convergence thresholds, the ultrafine grid for the integral quadrature and spherical harmonics \textit{d} and \textit{f} functions.
+All the optimizations just mentioned have been performed using the Gaussian 09 software package, revision d01\cite{g09}, using the default convergence thresholds, the ultrafine grid for the integral quadrature and spherical \textit{d} and \textit{f} basis functions.
 
 
 \subsubsection{Interaction Energies}
 In order to construct the classical force field (cf. Molecular Dynamics section), the most important parameter to obtain is the interaction energy of the the guest \ntm ion and the host carbon nanotube at the optimal adsorption distance.
-In this contribution, all interaction energies computed using first-principles methods have been evaluated according to the formula
+In this contribution, all interaction energies computed using first principles methods have been evaluated according to the formula
 %
 \begin{equation}
     E_{int} = E_{complex} - (E_{cnt} + E_{azide}) \label{eq:eint}
 \end{equation}
 %
-where the fragment energies $E_{cnt}$ and $E_{azide}$ have been computed using the basis set of the complex system, thus correcting the basis set superposition error according to the Boys and Bernardi scheme\cite{Boys1970}.
-Relaxation effects on the two interacting fragments have not been taken into account, although it has been recently shown that these effects contribute only in the order of 1--2 kcal/mol\cite{Battaglia2017a} to $E_{int}$ and thus do not substantially modify the overall picture.\\
+where the fragment energies $E_{cnt}$ and $E_{azide}$ have been computed in the basis set of the complex system, thus correcting the basis set superposition error according to the Boys and Bernardi scheme\cite{Boys1970}.
+Relaxation effects on the two interacting fragments have not been taken into account, although it has been recently shown that they contribute only in the order of 1--2 kcal/mol\cite{Battaglia2017a} to $E_{int}$ and thus do not substantially modify the overall picture.\\
 To locate the minimum of the potential energy surface (PES), a series of constrained optimizations involving nanotubes of lengths between 3 and 9 units has been performed. In these optimizations, the optimal geometry of the two fragments has been kept frozen and only their relative distance and orientation have been optimized, thus locating the adsorption distance.
-This series of optimizations has been performed at the same level of theory as before, employing the smaller cc-pVDZ basis set on the nanotube, the resolution of the identity technique with the auxiliary basis def2/J by Weigend \textit{et al.}\cite{Weigend2006}, using the ORCA program package, version 4\cite{ORCA}.\\
-Remarkably, it turns out that in the particular case of an azide anion confined inside a $(5,5)$CNT, the geometry with the \ntm molecule placed exactly in the center of the nanotube, aligned to its principal axis, results to be a local minimum. Moreover, the difference between this minimum and the lowest minimum found is at maximum less than $0.6$ kcal/mol for the nanotubes studied. For this reason, the geometry with the \ntm molecule placed in the center of the CNTs has been used for the calculation of $E_{int}$ at higher levels of theory and for longer nanotubes.
-For a detailed explanation of the structure optimizations, the criteria used to compare the them and all the geometries, we point the reader to the Supplementary Information.\\
+This series of optimizations has been performed using the ORCA 4 program package\cite{ORCA} at the same level of theory as before, besides employing the smaller cc-pVDZ basis set on the nanotube, the resolution of the identity technique for the Coulomb matrix using the auxiliary basis def2/J by Weigend \textit{et al.}\cite{Weigend2006}.\\
+Remarkably, it turns out that in the particular case of an azide anion confined inside a $(5,5)$CNT, the geometry with the \ntm molecule placed exactly in the center of the nanotube, aligned to its principal axis, results to be a local minimum. Moreover, the difference between this minimum and the lowest minimum found is at most less than $0.6$ kcal/mol for the nanotubes studied. For this reason, the geometry with the \ntm molecule placed in the center of the CNTs has been used for the calculation of $E_{int}$ at higher levels of theory and for nanotubes longer than 9 units.
+For a detailed explanation of the structure optimizations, the criteria used to compare them and all the geometries, we point the reader to the Supplementary Information.\\
 
 %%%%
-As we are dealing with finite size CNTs, it is important to study the dependence of the interaction energy with respect to the length of the nanotube. In particular, given that the confined species is negatively charged, one expects a slower convergence compared to uncharged systems due to the typically more diffuse electron density of anions.\\
-Accurate interaction energies have been calculated at wave function level of theory, using the spin-component-scaled MP2 method (SCS-MP2)[REFERENCE] and the local coupled cluster method DLPNO-CCSD(T) as implemented in the ORCA 4 program [REFERENCE]. Calculations have been performed using the cc-pVDZ or the cc-pVTZ basis set (where computationally feasible) and in both cases diffuse functions (aug-) have been added on the \ntm ion.\\
-FIGURE X depicts the results obtained for nanotubes of different lengths, where it is immediately clear that interaction energy shows a slow convergence rate with respect to $\Lambda$.
-In order to obtain accurate interaction energies, extrapolated DLPNO-CCSD(T)/cc-pVTZ values have been obtained using the following formula
+As we are dealing with finite size CNTs, it is important to study the dependence of the interaction energy with respect to the length of the nanotube. In particular, given that the confined species is negatively charged, one expects a slower convergence compared to neutral systems due to the typically more diffuse electron density of anions.\\
+Accurate interaction energies have been calculated at wave function level of theory, using the density-fitted spin-component-scaled MP2 method (RI-SCS-MP2)[REFERENCE] and the local coupled cluster method DLPNO-CCSD(T) as implemented in the ORCA 4 program package\cite{Riplinger2013,Riplinger2016}. Calculations have been performed using the cc-pVDZ or the cc-pVTZ basis set (where computationally feasible) and in both cases diffuse functions (aug-) have been added on the \ntm species.\\
+\fref{fig:n3t55x_eint} depicts the results obtained for nanotubes of different lengths, where it is immediately clear that interaction energy shows a slow convergence rate with respect to $\Lambda$.
+In order to obtain accurate interaction energies within a sufficiently large basis set, extrapolated DLPNO-CCSD(T)/cc-pVTZ values have been obtained using the following formula
 %
 \begin{equation}
     E_{CC}(pVTZ) \approx E_{MP2}(pVTZ) + (E_{CC}(pVDZ) - E_{MP2}(pVDZ)) \label{eq:basis_extr}
 \end{equation}
 %
 where it is assumed that the correlation energy difference between the two methods is constant with respect to the basis set used.
-This approach has allowed us to obtain accurate values for nanotubes of length 3, 5 and 7. Nonetheless, as it can be seen from the RI-SCS-MP2/cc-pVDZ curve in FIGURE X, $E_{int}$ still significantly decreases with the addition of of extra nanotube units.
-Therefore, in order to be able to extrapolate the DLPNO-CCSD(T)/cc-pVTZ confinement energy inside an arbitrary $\Lambda$-(5,5) nanotube we propose the following formula
+This approach has allowed us to obtain approximate accurate values for nanotubes of length 3, 5 and 7. Nonetheless, as it can be seen from the RI-SCS-MP2/cc-pVDZ curve in \Cref{fig:n3t55x_eint}, $E_{int}$ still significantly decreases with the addition of extra nanotube units.
+Therefore, in order to be able to extrapolate the DLPNO-CCSD(T)/cc-pVTZ confinement energy inside an arbitrary $\Lambda$-(5,5) nanotube we use the following formula
 %
 \begin{equation}
     E_{int}(\Lambda) = \frac{a\Lambda}{b + \Lambda} \label{eq:length_extr}
@@ -74,9 +74,9 @@ Therefore, in order to be able to extrapolate the DLPNO-CCSD(T)/cc-pVTZ confinem
 %
 where $a$ and $b$ are two fitting parameters to be determined.
 \Cref{eq:length_extr} is the simplest formula which satisfies the condition $E_{int}(0) = 0$ and provides and estimates for the infinitely long nanotube through the parameter $a$.\\
-The solid line in FIGURE X shows the fit to the three approximated DLPNO-CCSD(T)/cc-pVTZ interaction energies computed according to \cref{eq:basis_extr}. 
+The solid line in \Cref{fig:n3t55x_eint} shows the non-linear least square fit to the approximated DLPNO-CCSD(T)/cc-pVTZ interaction energies computed according to \cref{eq:basis_extr}.
 For a detailed explanation of the parameters used in the calculation and the tests performed to assess the validity of our approach, we point the reader to the Supplementary Information.\\
-In \fref{fig:n3t55x_eint} we see the resulting values.
+In  we see the resulting values.
 
 
 \subsection{Molecular Dynamics}
