@@ -14,12 +14,12 @@ Q_N_ext = -0.56; Q_N_int = +0.12; # in au units
 α_H = 0.38
 
 # Read the two fragments
-frag_1 = readxyz("data/geometries/t5513_b97d3_cc-pvtz.xyz")
+frag_1 = readxyz("data/geometries/t5511_b97d3_cc-pvtz.xyz")
 frag_2 = readxyz("data/geometries/n3_b97d3_aug-cc-pvtz.xyz")
 
 # Parse atomic charges of fragment_1 and set them
 # frag_1.charges = atomic_charges("data/t553_b97d3_cc-pvtz.log")
-frag_1.charges = readdlm("data/charges/t5513_b97d3_cc-pvtz_npa.dat")
+frag_1.charges = readdlm("data/charges/t5511_b97d3_cc-pvtz_npa.dat")
 
 # Set partial atomic charges to azide anion
 frag_2.charges = [Q_N_ext Q_N_int Q_N_ext]

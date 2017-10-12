@@ -57,7 +57,7 @@ For a detailed explanation of the structure optimizations, the criteria used to 
 %%%%
 As we are dealing with finite size CNTs, it is important to study the dependence of the interaction energy with respect to the length of the nanotube. In particular, given that the confined species is negatively charged, one expects a slower convergence compared to neutral systems due to the typically more diffuse electron density of anions.\\
 Accurate interaction energies have been calculated at wave function level of theory, using the density-fitted spin-component-scaled MP2 method (RI-SCS-MP2)[REFERENCE] and the local coupled cluster method DLPNO-CCSD(T) as implemented in the ORCA 4 program package\cite{Riplinger2013,Riplinger2016}. Calculations have been performed using the cc-pVDZ or the cc-pVTZ basis set (where computationally feasible) and in both cases diffuse functions (aug-) have been added on the \ntm species.\\
-\fref{fig:n3t55x_eint} depicts the results obtained for nanotubes of different lengths, where it is immediately clear that interaction energy shows a slow convergence rate with respect to $\Lambda$.
+\fref{fig:n3t55x_ab-initio_eint} depicts the results obtained for nanotubes of different lengths, where it is immediately clear that interaction energy shows a slow convergence rate with respect to $\Lambda$.
 In order to obtain accurate interaction energies within a sufficiently large basis set, extrapolated DLPNO-CCSD(T)/cc-pVTZ values have been obtained using the following formula
 %
 \begin{equation}
@@ -65,7 +65,7 @@ In order to obtain accurate interaction energies within a sufficiently large bas
 \end{equation}
 %
 where it is assumed that the correlation energy difference between the two methods is constant with respect to the basis set used.
-This approach has allowed us to obtain approximate accurate values for nanotubes of length 3, 5 and 7. Nonetheless, as it can be seen from the RI-SCS-MP2/cc-pVDZ curve in \Cref{fig:n3t55x_eint}, $E_{int}$ still significantly decreases with the addition of extra nanotube units.
+This approach has allowed us to obtain approximate accurate values for nanotubes of length 3, 5 and 7. Nonetheless, as it can be seen from the RI-SCS-MP2/cc-pVDZ curve in \Cref{fig:n3t55x_ab-initio_eint}, $E_{int}$ still significantly decreases with the addition of extra nanotube units.
 Therefore, in order to be able to extrapolate the DLPNO-CCSD(T)/cc-pVTZ confinement energy inside an arbitrary $\Lambda$-(5,5) nanotube we use the following formula
 %
 \begin{equation}
@@ -73,124 +73,64 @@ Therefore, in order to be able to extrapolate the DLPNO-CCSD(T)/cc-pVTZ confinem
 \end{equation} 
 %
 where $a$ and $b$ are two fitting parameters to be determined.
-\Cref{eq:length_extr} is the simplest formula which satisfies the condition $E_{int}(0) = 0$ and provides and estimates for the infinitely long nanotube through the parameter $a$.\\
-The solid line in \Cref{fig:n3t55x_eint} shows the non-linear least square fit to the approximated DLPNO-CCSD(T)/cc-pVTZ interaction energies computed according to \cref{eq:basis_extr}.
+\Cref{eq:length_extr} is the simplest formula which satisfies the condition $E_{int}(0) = 0$ and provides an estimate for the infinitely long nanotube through the parameter $a$.\\
+The solid lines in \Cref{fig:n3t55x_ab-initio_eint} show the non-linear least square fits to the RI-SCS-MP2/cc-pVDZ and the approximated DLPNO-CCSD(T)/cc-pVTZ interaction energies computed according to \cref{eq:basis_extr}.
+The extrapolated value for $E_{int}$ in the limit of an infinitely long CNT is $-65.93$ kcal/mol.
 For a detailed explanation of the parameters used in the calculation and the tests performed to assess the validity of our approach, we point the reader to the Supplementary Information.\\
-In  we see the resulting values.
 
 
 \subsection{Molecular Dynamics}
-The Improved Lennard-Jones (ILJ) potential is given by
+The Improved Lennard-Jones (ILJ) potential\cite{Pirani2008} is given by
 %
 \begin{equation}
-    V_{ILJ}(r) = \epsilon \left[ \frac{m}{n(r)-m} \cdot \Big( \frac{r_0}{r} \Big)^{n(r)} -
-                                 \frac{n(r)}{n(r)-m} \cdot \Big( \frac{r_0}{r} \Big)^{m} \right]
+    V_{ILJ}(r_{ij}) = \epsilon \left[ \frac{m}{n(r_{ij})-m} \cdot \Big( \frac{r_0}{r_{ij}} \Big)^{n(r_{ij})} -
+                                 \frac{n(r_{ij})}{n(r_{ij})-m} \cdot \Big( \frac{r_0}{r_{ij}} \Big)^{m} \right]
 \end{equation}
 %
 where
 %
 \begin{equation}
-    n(r) = \beta + 4.0 \cdot \Big( \frac{r}{r_0} \Big)^2
+    n(r_{ij}) = \beta + 4.0 \cdot \Big( \frac{r_{ij}}{r_0} \Big)^2
 \end{equation}
 %
-and $r = R_{i,j}$ is the distance between carbon atom $i$ and nitrogen atom $j$. The parameters $r_0$, $\epsilon$ and $\beta$ are set according to the atoms interacting, while $m$ is set according the to the partial charges of the interacting species.
-The induction potential term for a $\text{N}_3^-$ anion interacting with carbon atoms is given by
+and $r_{ij}$ is the distance between atom $i$ in the carbon nanotube and atom $j$ in the \ntm molecule. The parameters $r_0$ and $\epsilon$ are set according to the atoms interacting, $\beta$ is a free parameter used to fit the potential to experimental or numerical values, while $m$ is set according the to the partial charges of the interacting species.
+Since the azide anion has a total negative charge of $-1$, one has to introduce a non-bonded term in the potential which accounts for the induced polarization on the carbon nanotube due to the excess negative charge of the anion.
+The potential term $V_{ind}$ describing the dipole induced by the $\text{N}_3^-$ anion on a neutral fragment is given by
 %
 \begin{equation}
-    V_{ind}(R_{i,1},R_{i,2},R_{i,3}) = - \frac{1}{2} \cdot \alpha_C \cdot \frac{n(R_{i,2})}{n(R_{i,2}) - 4}
-                        \left[ \frac{Q_{N_1}}{R_{i,1}^2} + \frac{Q_{N_2}}{R_{i,2}^2} + \frac{Q_{N_3}}{R_{i,3}^2} \right]^2
+    V_{ind}(r_{i1},r_{i2},r_{i3}) = - \frac{1}{2} \cdot \alpha \cdot f(r_{i1},r_{i2},r_{i3})
+                        \left[ \frac{q_1}{r_{i1}^2} + \frac{q_2}{r_{i2}^2} + \frac{q_3}{r_{i3}^2} \right]^2
 \end{equation}
 %
-where $R_{i,1}$, $R_{i,2}$ and $R_{i,3}$ are the distances between the carbon atom $i$ and the three nitrogen atoms, $Q_{N_1}$, $Q_{N_2}$ and $Q_{N_3}$ are the partial charges on the nitrogen atoms, $\alpha_C$ is the polarizability of the carbon atoms and $n(R_{i,2})$ is equal to $n(r)$ using $r_0$ according to the interaction between $C-N_2$.\\
-Because we are using a finite-size model for the carbon nanotube, saturated with hydrogen atoms at the two ends, the nanotube wall is polarized.
-The interaction between the azide anion and the nanotube contains therefore a significant electrostatic contribution, which cannot be neglected.
-The electrostatic potential term is given by the following formula
+where $r_{i1}$, $r_{i2}$ and $r_{i3}$ are the distances between atom $i$ of the neutral species and the three nitrogen atoms of the azide anion, $q_1$, $q_2$ and $q_3$ are the partial charges on the nitrogen atoms, $\alpha$ is the polarizability per volume of the atoms in the neutral species and $f(r_{i1},r_{i2},r_{i3})$ is a damping factor.\\  % $f(R_{i,2}) = \frac{n(R_{i,2})}{n(R_{i,2}) - 4}$
+By saturating the CNT with hydrogen atoms, the two ends of the nanotube result significantly polarized with partial atomic charges in the range of $\pm 0.2$.
+As a consequence, the \ntm interacts through the usual Coulomb potential with the partial atomic charges on the nanotube, giving rise to an additional term $V_{els}$ describing this electrostatic potential as
 %
 \begin{equation}
-    V_{els}(R_{i,j}) = \sum_{i,j} \frac{Q_i Q_j}{R_{i,j}}
+    V_{els}(r_{ij}) = \frac{q_i q_j}{r_{ij}}
 \end{equation}
 %
-where the sum runs over all atoms of the two fragments and takes into account all pairwise electrostatic interactions between them.
-The total interaction energy between the azide anion confined inside a carbon nanotube is given by
+This \textit{artificial} term clearly vanishes when considering infinitely long nanotubes.\\
+
+The total interaction energy $E_{int}$ is finally obtained by summing over all atoms of both fragments for each potential term, as given in the following
 %
 \begin{align}
-    E_{int} = \Bigg[ \sum_{i=1}^{N_C} V_{ind}(R_{i,1},R_{i,2},R_{i,3}) +
-              \sum_{j=1}^{N_N} V_{ILJ}^{C-N_{j}}(R_{i,j}) + V_{els}(R_{i,j}) \Bigg] +
-              \sum_{k=1}^{N_H} \sum_{j=1}^{N_N} V_{els}(R_{k,j})
+    E_{int} = \sum_{i=1}^{N_C + N_H} V^{(i)}_{ind}(r_{i1},r_{i2},r_{i3}) +
+              \sum_{j=1}^{N_N} V_{ILJ}^{(ij)}(r_{ij}) + V_{els}(r_{ij})
 \end{align}
 %
 where $N_C$, $N_N$ and $N_H$ correspond to the total number of carbon, nitrogen and hydrogen atoms, respectively.
-The ILJ potential $V_{ILJ}^{C-N_j}$ is defined according to the parameters given in \tref{tab:ILJ_parms} and the polarizability $\alpha_C$ appearing in $V_{ind}$ is set to $1.2$, the partial charges as $Q_{N_1} = Q_{N_3} = -0.56$ and $Q_{N_2} = 0.12$ and finally the term $\tfrac{n}{n - 4}$ is assumed to be $1.0$ for the time being.\\
-In order to test the performance of the classical potential, we have computed the interaction energy between the azide anion and a short 3-CNT(5,5) nanotube at \textit{ab-intio} level and compared it with the result obtained by the potential, as shown in \tref{tab:n3_t553_ILJ_eint}.\\
-Similarly, we have compared the interaction energies for the confinement in a longer 5-CNT(5,5), listed in \tref{tab:n3_t555_ILJ_eint}.
-Moreover, \tref{tab:n3_t557_ILJ_eint}, \tref{tab:n3_t559_ILJ_eint}, \tref{tab:n3_t5511_ILJ_eint} and \tref{tab:n3_t5513_ILJ_eint} list the results for longer nanotubes.
-A comparison of the interaction energy computed by different dft functionals is listed in \tref{tab:n3_t553_dft_comp}, while a comparison of the electrostatic term with respect to the basis set used in the calculation can be seen in \tref{tab:els_basis_comp}.
+The superscript $(ij)$ in the ILJ potential term $V_{ILJ}^{(ij)}$ keeps track of the interacting atom types such that the parameters can be accordingly set to the values given in \tref{tab:ILJ_parms} [WHERE DO THESE VALUES COME FROM?].
+The values used for the polarizability per volume (in \AA$^{-3}$) appearing in $V^(i)_{ind}$ are given by $\alpha_H = 0.34$ and $\alpha_C = 1.20$ for hydrogen and carbon, respectively.
+The partial atomic charges on the azide anion were set to be $q_1 = q_3 = -0.56$ and $1_2 = 0.12$.\\
+
+Some table and figures.
+\fref{fig:n3t55x_classical_eint}
+\fref{fig:n3t55x_comp_eint}
+\tref{tab:pot_comp}
+
 
 \clearpage
-%%%%%%%%%%%%%%%%
-Since the aim is to fit the potential to the max interaction energy only (i.e. to fit the well depth $\epsilon$), a very accurate value for this interaction energy is required. In order to do so, an elaborate scheme is required, which involves several steps.\\
-%
-\begin{enumerate}
-    \item Geometry relaxation of the complex system and the monomers. The nanotube length is only 3 units, otherwise there are too many basis functions
-    \begin{enumerate}
-        \item Using one pure functional among PBE, B97 and TPSS
-        \item Using Grimme dispersion with Becke and Johnson damping (D3BJ)
-        \item Using the cc-pvtz basis set on the CNT and the aug-cc-pvtz on the nitrogen (diffuse functions also on the tube lead to linear dependence)
-        \item Now testing density fitting in Gaussian, if much faster, we use also that for the pure functional with the universal def2/j basis set
-        \item Using one hybrid functional among B3LYP, APFD, what else?
-    \end{enumerate}
-    \item All the geometry calculations are performed in Gaussian
-    \item To obtain accurate interaction energies, there is a total of 7 single point calculations to be performed
-    \begin{enumerate}
-        \item Complex at the complex geometry in the full basis
-        \item First monomer at the complex geometry in the full basis
-        \item First monomer at the complex geometry in the monomer basis
-        \item First monomer at the monomer geometry in the monomer basis
-        \item Second monomer at the complex geometry in the full basis
-        \item Second monomer at the complex geometry in the monomer basis
-        \item Second monomer at the monomer geometry in the monomer basis
-    \end{enumerate}
-    \item The series of 7 calculations just listed has to be done for two basis sets, to be able to extrapolate the results at CBS limit
-    \item The extrapolation schemes are different for SCF and correlated calculations, therefore they can be done separately
-    \item For the SCF extrapolation, we can compute in Gaussian using triple and quadruple zeta basis sets
-    \item For the correlated extrapolation, we can compute in ORCA using double and triple zeta basis sets (which will give us also dz scf points)
-    \item The SCF in this case does not use the RI approximation for both Gaussian and ORCA
-    \item The correlated method is the DLPNO-CCSD(T)
-    \item Partial charges have to be obtained and there are many ways to do it. First of all, we need to decide which density to use
-    \begin{enumerate}
-        \item The density (relaxed, unrelaxed, linearized?) of the DLPNO-CCSD(T) method (I do not know how much expensive it is)
-        \item Find a DFT functional in which we can trust (how?) and use its density
-        \item Use the density of DLPNO-SCS-MP2 if it reproduces well the CCSD(T) one. But the same problem as above (relaxed, unrelaxed, linearized? Expensive?)
-    \end{enumerate}
-    \item Once we know which density we want to use, calculate the charges
-    \begin{enumerate}
-        \item NPA charges from NBO analysis
-        \item MESP derived charges
-        \item Many other possibilities...
-    \end{enumerate}
-    \item Calculate multipole moments with the charges obtained and compare them with the moments obtained from the calculation
-\end{enumerate}
-%
-The above computational scheme will provide a very accurate interaction energy and can be ideally applied to different systems. The major pitfall of the above procedure, is the very first step, i.e. the geometry optimization.
-%
-\begin{enumerate}
-    \item The functional used for the geometry optimization might give wrong conformations
-    \item One should optimize the geometry using a wf method, but if it is too expensive we cannot
-    \item Moreover there are a plethora of minima in the PES, several starting geometries have to be relaxed and compared with each other
-\end{enumerate}
-%
-\medskip
-With the interaction energy and the partial charges, we can tune the ILJ potential such that it reproduces the interaction energy obtained with the above scheme.\\
-\newline
-There is a large amount of arbitrariness in this procedure to obtain the ILJ potential.
-The partial charges calculated are in principle arbitrary and considering them explicitly enhances the complexity of the problem. In particular, the charges will certainly vary depending on the length of the nanotube. This means that if we would like to use longer CNTs in the MD simulation, then the tuned ILJ potential which includes explicitly the charges might not be valid anymore.
-I believe that therefore we cannot pursue this approach.\\
-A possible solution would be to fit the ILJ potential to a series of calculations of the complex system at different conformations. In this way, the electrostatic effects would be implicitly taken care of in the fitting procedure. Nonetheless, for such a fit, the above procedure is certainly to expensive and one should come up with a reasonable approximation.\\
-Another possibility is to neglect completely the electrostatic term in the potential and tune it just according dispersion and induction forces. This is basically the same as the above solution, but without fitting the entire potential and only relying on the single interaction energy value.\\
-A last idea is to assume that in the limit of a very long nanotube, the polarization far away from the nanotube ends is minimal and has to be taken care only locally around the azide anion. This would mean that the partial charges are assigned only locally around the azide anion and they would need to be approximated in some way. One such way is to compute them for a nanotube of increasing length and observe how they change. If the change is minimal, they can be safely assumed to remain so for any length, if this is not the case, then probably this idea is not feasible.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \bibliographystyle{unsrt}
 \bibliography{library}
@@ -203,7 +143,7 @@ Three starting geometries were chosen according to possible ``adsorption'' sites
 The fourth starting geometry is shown in \fref{fig:n3t553_start_center} and it simply consists in the N$_3^-$ anion placed exactly in the center of the nanotube. We will refer to this starting geometry as \textit{central} (c) geometry.
 In order to study the edge effects on the position of the minimum, CNTs of four different lengths have been considered, namely with 3, 5, 7 and 9 units.
 The relaxation has been performed again at DFT level using the B97D3 functional, but this time with the smaller cc-pvdz\cite{DunningJr1989} basis set on the carbon nanotube and the aug-cc-pvtz\cite{DunningJr1989} on the N$_3^-$.
-The resolution-of-the-identity (RI) approximation has been used to compute the Coulomb matrix, adopting the universal fitting basis set def2/j\cite{Weigend2006}. The calculations have been performed using the ORCA 4 program package\cite{ORCA4}.\\
+The resolution-of-the-identity (RI) approximation has been used to compute the Coulomb matrix, adopting the universal fitting basis set def2/j\cite{Weigend2006}. The calculations have been performed using the ORCA 4 program package\cite{ORCA}.\\
 The relaxed structures starting from the (c) geometry correspond to a (local) minimum, as after one optimization step the convergence is reached, with the \ntm anion insignificantly ($\approx 0.002$\AA) shifted out of the principal axis. For this reason we will consider from now on the (c) geometry as the perfectly aligned anion to the principal axis and sitting in the center of the nanotube.
 For the three other starting conformations, namely the the (b), (h) and (z) geometries, the relaxation leads to different (local) minima.
 In order to analyze the differences in the final structures, three geometrical parameters and an energetic one have been considered.
@@ -212,7 +152,6 @@ The energetic parameter is the interaction energy $E_{int}$ between the two frag
 %
 \begin{equation}
     E_{int} = E_{complex} - (E_{cnt} + E_{azide})
-    \label{eq:eint}
 \end{equation}
 %
 and corrected for the basis set superposition error according to the Boys and Bernardi scheme\cite{Boys1970}.
@@ -227,6 +166,12 @@ The most fluctuating parameter is $d_{cm}$. Clearly, the periodic atomic pattern
 The only exception is found for the 3-CNT(5,5), where the two open ends of the nanotube are so close that the energy barriers to move away from the center are particularly steep.
 Nonetheless, although the evident difference between the final geometries, the effect observed on the interaction energy, which is our first and most important parameter that we are interested in, is minimal and, importantly, below chemical accuracy ($\approx 1$ kcal/mol).
 As it appears a very hard task to find the \emph{global minimum} for this type of systems and considering the small influence observed on the interaction energy as well as remembering that the accuracy of classical parametrized potentials is well below the differences $\Delta E_{int}$ listed in \Cref{tab:geom_comp} [maybe ref?], the central geometry (c) will be used for all interaction energies computed in this work at a higher level of theory and for nanotubes longer than $\Lambda = 9$.\\
+
+
+In order to test the performance of the classical potential, we have computed the interaction energy between the azide anion and a short 3-CNT(5,5) nanotube at \textit{ab-intio} level and compared it with the result obtained by the potential, as shown in \tref{tab:n3_t553_ILJ_eint}.\\
+Similarly, we have compared the interaction energies for the confinement in a longer 5-CNT(5,5), listed in \tref{tab:n3_t555_ILJ_eint}.
+Moreover, \tref{tab:n3_t557_ILJ_eint}, \tref{tab:n3_t559_ILJ_eint}, \tref{tab:n3_t5511_ILJ_eint} and \tref{tab:n3_t5513_ILJ_eint} list the results for longer nanotubes.
+A comparison of the interaction energy computed by different dft functionals is listed in \tref{tab:n3_t553_dft_comp}, while a comparison of the electrostatic term with respect to the basis set used in the calculation can be seen in \tref{tab:els_basis_comp}.
 
 
 \end{document}
