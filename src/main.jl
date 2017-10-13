@@ -7,7 +7,7 @@ include("xyz_parser.jl")
 ϵ_C_N_int = 3.536; r0_C_N_int = 3.818;      # Carbon to internal nitrogen
 ϵ_H_N_ext = 2.827; r0_H_N_ext = 3.644;
 ϵ_H_N_int = 2.431; r0_H_N_int = 3.348;
-β = 9.0
+β = 8.0
 m = 6.0
 Q_N_ext = -0.56; Q_N_int = +0.12; # in au units
 α_C = 1.2 # in Ang^3
@@ -18,7 +18,6 @@ frag_1 = readxyz("data/geometries/t5511_b97d3_cc-pvtz.xyz")
 frag_2 = readxyz("data/geometries/n3_b97d3_aug-cc-pvtz.xyz")
 
 # Parse atomic charges of fragment_1 and set them
-# frag_1.charges = atomic_charges("data/t553_b97d3_cc-pvtz.log")
 frag_1.charges = readdlm("data/charges/t5511_b97d3_cc-pvtz_npa.dat")
 
 # Set partial atomic charges to azide anion
@@ -69,8 +68,8 @@ for i in range(1,frag_1.n_atoms)
     end
 end
 
-# transformation factor
-mevtokcal = tokcal/(1000*toev)
+# Conversion factor meV to kcal/mol
+mevtokcal = 0.023060554446846782
 
 # Sum everything in meV
 V_ILJ_tot = V_ILJ_C_N1 + V_ILJ_C_N2 + V_ILJ_C_N3 + V_ILJ_H_N1 + V_ILJ_H_N2 + V_ILJ_H_N3
@@ -100,22 +99,22 @@ println("\n\tParameters:    β = ",β,"    m = ",m,"    α_C = ",α_C,"    α_H 
 @printf("%46s %8.2f [kcal/mol]\n\n","Total interaction energy:",V_int_tot_kcal)
 
 # DEBUG printing
-println("\n----------------------------------\nDEBUG printing [in kcal/mol]\n----------------------------------")
-println("ILJ C N1: ",round(V_ILJ_C_N1*mevtokcal,2))
-println("ILJ C N2: ",round(V_ILJ_C_N2*mevtokcal,2))
-println("ILJ C N3: ",round(V_ILJ_C_N3*mevtokcal,2))
-println("")
-println("ILJ H N1: ",round(V_ILJ_H_N1*mevtokcal,2))
-println("ILJ H N2: ",round(V_ILJ_H_N2*mevtokcal,2))
-println("ILJ H N3: ",round(V_ILJ_H_N3*mevtokcal,2))
-println("\n")
-println("els C N1: ",round(V_els_C_N1*mevtokcal,2))
-println("els C N2: ",round(V_els_C_N2*mevtokcal,2))
-println("els C N3: ",round(V_els_C_N3*mevtokcal,2))
-println("")
-println("els H N1: ",round(V_els_H_N1*mevtokcal,2))
-println("els H N2: ",round(V_els_H_N2*mevtokcal,2))
-println("els H N3: ",round(V_els_H_N3*mevtokcal,2))
-println("\n")
-println("ind C Nx: ",round(V_ind_C_N *mevtokcal,2))
-println("ind H Nx: ",round(V_ind_H_N *mevtokcal,2))
+# println("\n----------------------------------\nDEBUG printing [in kcal/mol]\n----------------------------------")
+# println("ILJ C N1: ",round(V_ILJ_C_N1*mevtokcal,2))
+# println("ILJ C N2: ",round(V_ILJ_C_N2*mevtokcal,2))
+# println("ILJ C N3: ",round(V_ILJ_C_N3*mevtokcal,2))
+# println("")
+# println("ILJ H N1: ",round(V_ILJ_H_N1*mevtokcal,2))
+# println("ILJ H N2: ",round(V_ILJ_H_N2*mevtokcal,2))
+# println("ILJ H N3: ",round(V_ILJ_H_N3*mevtokcal,2))
+# println("\n")
+# println("els C N1: ",round(V_els_C_N1*mevtokcal,2))
+# println("els C N2: ",round(V_els_C_N2*mevtokcal,2))
+# println("els C N3: ",round(V_els_C_N3*mevtokcal,2))
+# println("")
+# println("els H N1: ",round(V_els_H_N1*mevtokcal,2))
+# println("els H N2: ",round(V_els_H_N2*mevtokcal,2))
+# println("els H N3: ",round(V_els_H_N3*mevtokcal,2))
+# println("\n")
+# println("ind C Nx: ",round(V_ind_C_N *mevtokcal,2))
+# println("ind H Nx: ",round(V_ind_H_N *mevtokcal,2))
