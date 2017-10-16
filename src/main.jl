@@ -12,6 +12,8 @@ m = 6.0
 Q_N_ext = -0.56; Q_N_int = +0.12; # in au units
 α_C = 1.2 # in Ang^3
 α_H = 0.38
+#α_C = 1.334 # in Ang^3
+#α_H = 0.496
 
 # Read the two fragments
 frag_1 = readxyz("data/geometries/t5511_b97d3_cc-pvtz.xyz")

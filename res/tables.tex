@@ -1,6 +1,40 @@
 \def\btab#1#2{\expandafter\gdef\csname tab-#1\endcsname{\begin{table}[ht]#2\label{#1}\end{table}}}
 \def\tref#1{\csname tab-#1\endcsname\Cref{#1}}
 
+\btab{tab:ILJ_parms}{
+    \centering
+    \begin{tabular}{l cccc}
+        \toprule
+        parameter   & C--N$_{1,3}$  & C--N$_2$  & H--N$_{1,3}$  & H--N$_2$ \\
+        \midrule
+        $\epsilon$  & $5.205$       & $3.536$   & $2.827$       & $2.431$  \\
+        $r_0$       & $3.994$       & $3.828$   & $3.644$       & $3.348$  \\
+        \bottomrule
+    \end{tabular}
+    \caption{ILJ parameters for the interaction of N$_3^-$ with hydrogen and carbon atoms.}
+}
+
+\btab{tab:pot_comp}{
+    \centering
+    \begin{tabular}{l cccccc}
+        \toprule
+        $\Lambda =$            & $3$      & $5$      & $7$      & $9$      & $11$     & $13$     \\
+        \midrule
+        \textit{Dispersion}    & $-9.68$  & $-11.15$ & $-11.66$ & $-11.58$ & $-11.52$ & $-11.69$ \\
+        \textit{Electrostatic} & $+42.24$ & $+27.55$ & $+18.70$ & $+13.64$ & $+10.60$ & $+8.80$  \\
+        \textit{Induction}     & $-52.91$ & $-56.83$ & $-57.71$ & $-58.27$ & $-58.57$ & $-58.54$ \\
+        \midrule
+        Classical              & $-20.35$ & $-40.43$ & $-50.68$ & $-56.22$ & $-59.48$ & $-61.43$ \\
+        \emph{ab-initio}       & $-36.42$ & $-44.34$ & $-48.94$ & $-51.91$ & $-53.99$ & $-55.54$ \\
+        \midrule
+        $\Delta_{QM-MM}$       & $-16.07$ & $-3.91$  & $+1.74$  & $+4.31$  & $+5.49$  & $+5.89$  \\
+        \bottomrule
+    \end{tabular}
+    \caption{Interaction energies computed at \emph{ab-initio} and classical levels ($\beta = 8.0$).}
+}
+
+%%%%%%%%%%%%%%%%%%%%%% SUPPLEMENTARY INFORMATION %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \btab{tab:geom_comp}{
     \centering
     \begin{tabular}{crrrrr}
@@ -24,94 +58,61 @@
         ~ & \textit{zigzag}                & $-0.007$ & $ 0.004$ & $0.53$ & $ 0.141$ \\
         \bottomrule
     \end{tabular}
-    \caption{Geometrical parameters and interaction energy difference with respect to the (c) geometry. Note that the $d_{cm}$, $r_{axis}$ and $\theta$ are all zero for the (c) geometry.}
+    \caption{Geometrical parameters and interaction energy differences with respect to the (c) geometry.}
 }
 
-\btab{tab:eint_cnt55x_cc-pvtz}{
+\btab{tab:fit_eint}{
     \centering
-    \begin{tabular}{r cccccc}
+    \begin{tabular}{l ccc}
         \toprule
-        $\Lambda$-CNT & 3-CNT     & 5-CNT     & 7-CNT     & 9-CNT    & 11-CNT   & 13-CNT   \\
-        occ./virt.    & 260/2800  & 380/4000  & 500/5200  & 620/6400 & 740/7600 & 860/8800 \\
+        Method & $a (\Lambda \to \infty)$ & $b$ & $f(\Lambda)$ \\
         \midrule
-        RI-B97D3      & $-30.80$  & $-38.29$  & $-42.58$  & $-45.73$ & $-48.06$ & $-49.94$ \\
-        \textit{Time} & 27m       & 50m       & 1h20m     & 2h20m    & 4h12m    & 7h35m    \\
-        \vspace{1mm} \\
-        RI-SCS-MP2    & $-34.56$  & $-43.36$  & $-$       & $-$      & $-$      & $-$ \\
-        \textit{Time} & 8h        & 36h (8cpus) & $-$     & $-$      & $-$      & $-$ \\
+        RI-SCS-MP2/cc-pVDZ    & $-64.75$ & $4.11$ & $\tfrac{-64.75 \Lambda}{4.11 + \Lambda}$ \\ 
+        DLPNO-CCSD(T)/cc-pVTZ & $-65.93$ & $2.43$ & $\tfrac{-65.93 \Lambda}{2.43 + \Lambda}$ \\ 
         \bottomrule
     \end{tabular}
-    \caption{CP-corrected unrelaxed interaction energies of N$_3^-$ confined inside a $(5,5)$ SWCNT of increasing length. The azide anion is placed perfectly in the center of the nanotube, parallel to the principal axis. The basis set use is the \textbf{cc-pvtz} with the addition of diffuse functions (aug-) on the anion. All energies are given in kcal/mol.}
+    \caption{Fitting parameters of the interaction energy as a function of the nanotube length.}
 }
 
-\btab{tab:eint_cnt55x_cc-pvdtz}{
-    \centering
-    \begin{tabular}{r cccccc}
-        \toprule
-        $\Lambda$-CNT & 3-CNT     & 5-CNT     & 7-CNT     & 9-CNT    & 11-CNT   & 13-CNT   \\
-        occ./virt.    & 260/1400  & 380/1900  & 500/2500  & 620/3000 & 740/3600 & 860/4150 \\
-        \midrule
-        RI-B97D3      & $-26.26$  & $-33.97$  & $-38.50$  & $-41.85$ & $-44.36$ & $-46.36$ \\
-        \textit{Time} & 9m        & 20m       & 33m       & 45m      & 62m      & 1h25m    \\
-        \vspace{1mm} \\
-        RI-SCS-MP2    & $-29.77$  & $-38.87$  & $-43.58$  & $-47.07$ & $-49.88$ & $-$ \\
-        \textit{Time} & 1h40m     & 6h        & 10h       & 24h      & 50h20m   & $-$ \\
-        \vspace{1mm} \\
-        DLPNO-CCSD(T) & $-31.96$  & $-$       & $-$       & $-$      & $-$      & $-$ \\
-        \textit{Time} & 28h       & $-$       & $-$       & $-$      & $-$      & $-$ \\
-        \bottomrule
-    \end{tabular}
-    \caption{CP-corrected unrelaxed interaction energies of N$_3^-$ confined inside a $(5,5)$ SWCNT of increasing length. The azide anion is placed perfectly in the center of the nanotube, parallel to the principal axis. The basis set use is the \textbf{cc-pvdz} on the nanotube and the aug-cc-pvtz on the anion. All energies are given in kcal/mol.}
-}
-
-\btab{tab:ILJ_parms}{
-    \centering
-    \begin{tabular}{l cccc}
-        \toprule
-        parameter   & C--N$_{1,3}$  & C--N$_2$  & H--N$_{1,3}$  & H--N$_2$ \\
-        \midrule
-        $\epsilon$  & $5.205$       & $3.536$   & $2.827$       & $2.431$  \\
-        $r_0$       & $3.994$       & $3.828$   & $3.644$       & $3.348$  \\
-        \bottomrule
-    \end{tabular}
-    \caption{ILJ parameters for the interaction of N$_{3}^{-}$ with hydrogen and carbon atoms.}
-}
-
-\btab{tab:pot_comp}{
+\btab{tab:all_eint}{
     \centering
     \begin{tabular}{l cccccc}
         \toprule
-        $\Lambda =$            & $3$      & $5$      & $7$      & $9$      & $11$     & $13$     \\
+        Method                & $\Lambda=3$ & $\Lambda=5$ & $\Lambda=7$ & $\Lambda=9$ & $\Lambda=11$ & $\Lambda=13$ \\
         \midrule
-        \textit{Dispersion}    & $-9.68$  & $-11.15$ & $-11.66$ & $-11.58$ & $-11.52$ & $-11.69$ \\
-        \textit{Electrostatic} & $+42.24$ & $+27.55$ & $+18.70$ & $+13.64$ & $+10.60$ & $+8.80$  \\
-        \textit{Induction}     & $-52.91$ & $-56.83$ & $-57.71$ & $-58.27$ & $-58.57$ & $-58.54$ \\
+        RI-MP2/cc-pVDZ        & $-35.29$    & $-44.83$    & $-$         & $-$         & $-$          & $-$          \\
+        DLPNO-MP2/cc-pVDZ     & $-34.99$    & $-44.61$    & $-$         & $-$         & $-$          & $-$          \\
         \midrule
-        Classical           & $-20.35$ & $-40.43$ & $-50.68$ & $-56.22$ & $-59.48$ & $-61.43$ \\
-        \emph{ab-initio}    & $-36.42$ & $-44.34$ & $-48.94$ & $-51.91$ & $-53.99$ & $-55.54$ \\
+        DLPNO-CCSD(T)/cc-pVDZ & $-28.84$    & $-37.08$    & $-41.91$    & $-$         & $-$          & $-$          \\
+        RI-SCS-MP2/cc-pVTZ    & $-34.52$    & $-43.36$    & $-47.84$    & $-$         & $-$          & $-$          \\
         \midrule
-        $\Delta_{QM-MM}$    & $-16.07$ & $-3.91$  & $+1.74$  & $+4.31$  & $+5.49$  & $+5.89$  \\
+        RI-SCS-MP2/cc-pVDZ    & $-26.94$    & $-36.06$    & $-40.81$    & $-44.31$    & $-47.12$     & $-49.16$     \\
+        RI-B97D3/cc-pVTZ      & $-30.80$    & $-38.29$    & $-42.58$    & $-45.73$    & $-48.06$     & $-49.94$     \\
+        \midrule
+        ILJ ($\beta = 8$)     & $-20.35$    & $-40.43$    & $-50.68$    & $-56.22$    & $-59.48$     & $-61.43$     \\
         \bottomrule
     \end{tabular}
-    \caption{Interaction energies computed at \emph{ab-initio} and classical levels ($\beta = 8.0$).}
+    \caption{Interaction energies for nanotubes of different length, computed at different levels of theory. All values are given in kcal/mol.}
 }
 
 \btab{tab:n3_t553_ILJ_eint}{
     \centering
     \begin{tabular}{l rrr}
         \toprule
-        Terms                & $\beta = 7.0$ & $\beta = 8.0$ & $\beta = 9.0$ \\
+        \multicolumn{4}{c}{$\Lambda = 3$} \\
         \midrule
-        $V_{ILJ}$ [kcal/mol] & $-10.90$      & $-9.68$       & $-8.37$      \\
-        $V_{els}$ [kcal/mol] & $+42.24$      & $+42.24$      & $+42.24$      \\
-        $V_{ind}$ [kcal/mol] & $-52.91$      & $-52.91$      & $-52.91$      \\
+        Terms             & $\beta = 7.0$ & $\beta = 8.0$ & $\beta = 9.0$ \\
         \midrule
-        $V_{tot}$ [kcal/mol] & $-21.57$      & $-20.35$      & $-19.04$      \\
+        $V_{ILJ}$         & $-10.90$      & $-9.68$       & $-8.37$      \\
+        $V_{els}$         & $+42.24$      & $+42.24$      & $+42.24$      \\
+        $V_{ind}$         & $-52.91$      & $-52.91$      & $-52.91$      \\
         \midrule
-        $V_{SCS-MP2/DZP}$ [kcal/mol]       & \multicolumn{3}{c}{$-26.94$}  \\
-        $V_{SCS-MP2/TZP}$ [kcal/mol]       & \multicolumn{3}{c}{$-34.52$}  \\
-        $V_{L-CCSD(T)/DZP}$ [kcal/mol]       & \multicolumn{3}{c}{$-28.84$} \\
-        $\bar{V}_{L-CCSD(T)/TZP}$ [kcal/mol] & \multicolumn{3}{c}{$-36.42$} \\
+        $V_{tot}$         & $-21.57$      & $-20.35$      & $-19.04$      \\
+        \midrule
+        $V_{RI-SCS-MP2/cc-pVDZ}$          & \multicolumn{3}{c}{$-26.94$}  \\
+        $V_{RI-SCS-MP2/cc-pVTZ}$          & \multicolumn{3}{c}{$-34.52$}  \\
+        $V_{DLPNO-CCSD(T)/cc-pVDZ}$       & \multicolumn{3}{c}{$-28.84$} \\
+        $\bar{V}_{DLPNO-CCSD(T)/cc-pVTZ}$ & \multicolumn{3}{c}{$-36.42$} \\
         \bottomrule
     \end{tabular}
     \caption{Interaction energies for N$_3^-$ confined inside a 3-CNT(5,5).}
@@ -129,8 +130,8 @@
         \midrule
         $V_{tot}$ [kcal/mol] & $-41.61$      & $-40.43$      & $-39.16$      \\
         \midrule
-        $V_{SCS-MP2/DZP}$ [kcal/mol]       & \multicolumn{3}{c}{$-36.06$}  \\
-        $V_{SCS-MP2/TZP}$ [kcal/mol]       & \multicolumn{3}{c}{$-43.36$}  \\
+        $V_{RI-SCS-MP2/DZP}$ [kcal/mol]       & \multicolumn{3}{c}{$-36.06$}  \\
+        $V_{RI-SCS-MP2/TZP}$ [kcal/mol]       & \multicolumn{3}{c}{$-43.36$}  \\
         $V_{L-CCSD(T)/DZP}$ [kcal/mol]       & \multicolumn{3}{c}{$-37.08$} \\
         $\bar{V}_{L-CCSD(T)/TZP}$ [kcal/mol] & \multicolumn{3}{c}{$-44.34$} \\
         \bottomrule
