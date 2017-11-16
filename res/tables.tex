@@ -7,11 +7,23 @@
         \toprule
         parameter   & C--N$_{1,3}$  & C--N$_2$  & H--N$_{1,3}$  & H--N$_2$ \\
         \midrule
-        $\epsilon$  & $5.205$       & $3.536$   & $2.827$       & $2.431$  \\
-        $r_0$       & $3.994$       & $3.828$   & $3.644$       & $3.348$  \\
+        $\epsilon$  & $5.074$       & $3.469$   & $2.827$       & $2.431$  \\
+        $r_0$       & $3.984$       & $3.805$   & $3.644$       & $3.348$  \\
         \bottomrule
     \end{tabular}
-    \caption{ILJ parameters for the interaction of N$_3^-$ with hydrogen and carbon atoms.}
+    \caption{ILJ parameters for the atomic interactions nitrogen--hydrogen and nitrogen--carbon.}
+}
+
+\btab{tab:polarizabilities}{
+    \centering
+    \begin{tabular}{l cccc}
+        \toprule
+        ~                        & hydrogen & carbon  & nitrogen 1,3 & nitrogen 2 \\
+        \midrule
+        $\bar{\alpha}$ [\AA$^3$] & $0.380$  & $1.136$ & $1.900$      & $0.850$    \\
+        \bottomrule
+    \end{tabular}
+    \caption{Mean atomic polarizabilities used in this work.}
 }
 
 \btab{tab:pot_comp}{
@@ -20,17 +32,17 @@
         \toprule
         $\Lambda =$            & $3$      & $5$      & $7$      & $9$      & $11$     & $13$     \\
         \midrule
-        \textit{Dispersion}    & $-9.68$  & $-11.15$ & $-11.66$ & $-11.58$ & $-11.52$ & $-11.69$ \\
-        \textit{Electrostatic} & $+42.24$ & $+27.55$ & $+18.70$ & $+13.64$ & $+10.60$ & $+8.80$  \\
-        \textit{Induction}     & $-52.91$ & $-56.83$ & $-57.71$ & $-58.27$ & $-58.57$ & $-58.54$ \\
+        \textit{Dispersion}    & $-10.04$ & $-11.26$ & $-11.71$ & $-11.64$ & $-11.57$ & $-11.74$ \\
+        \textit{Electrostatic} & $+42.02$ & $+27.37$ & $+18.70$ & $+13.64$ & $+10.60$ & $+8.80 $ \\
+        \textit{Induction}     & $-50.92$ & $-54.06$ & $-54.74$ & $-55.20$ & $-55.44$ & $-55.42$ \\
         \midrule
-        Classical              & $-20.35$ & $-40.43$ & $-50.68$ & $-56.22$ & $-59.48$ & $-61.43$ \\
+        Classical              & $-18.94$ & $-37.95$ & $-47.75$ & $-53.20$ & $-56.41$ & $-58.35$ \\
         \emph{ab-initio}       & $-36.42$ & $-44.34$ & $-48.94$ & $-51.91$ & $-53.99$ & $-55.54$ \\
         \midrule
-        $\Delta_{QM-MM}$       & $-16.07$ & $-3.91$  & $+1.74$  & $+4.31$  & $+5.49$  & $+5.89$  \\
+        $\Delta_{QM-MM}$       & $-17.48$ & $-6.39$  & $-1.19$  & $+1.29$  & $+2.42$  & $+2.81 $ \\
         \bottomrule
     \end{tabular}
-    \caption{Interaction energies computed at \emph{ab-initio} and classical levels ($\beta = 8.0$).}
+    \caption{\emph{Ab-initio} and classical interaction energies and their relative difference ($\beta = 8.0$).}
 }
 
 %%%%%%%%%%%%%%%%%%%%%% SUPPLEMENTARY INFORMATION %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -89,10 +101,28 @@
         RI-SCS-MP2/cc-pVDZ    & $-26.94$    & $-36.06$    & $-40.81$    & $-44.31$    & $-47.12$     & $-49.16$     \\
         RI-B97D3/cc-pVTZ      & $-30.80$    & $-38.29$    & $-42.58$    & $-45.73$    & $-48.06$     & $-49.94$     \\
         \midrule
-        ILJ ($\beta = 8$)     & $-20.35$    & $-40.43$    & $-50.68$    & $-56.22$    & $-59.48$     & $-61.43$     \\
+        ILJ ($\beta = 8$)     & $-18.94$    & $-37.95$    & $-47.75$    & $-53.20$    & $-56.41$     & $-58.35$     \\
         \bottomrule
     \end{tabular}
     \caption{Interaction energies for nanotubes of different length, computed at different levels of theory. All values are given in kcal/mol.}
+}
+
+\btab{tab:carbon_polarizabilities}{
+    \centering
+    \begin{tabular}{l ccccccc}
+        \toprule
+        atom type     & CNT(5,5) & CNT(6,6) & CNT(7,7) & CNT(8,8) & CNT(9,9) & CNT(10,10) & CNT($\infty$,$\infty$) \\
+        \midrule
+        carbon        & $1.136$  & $1.158$  & $1.179$  & $1.200$  & $1.219$  & $1.237$    & $1.348$ \\
+        \textit{eff}  & $2.414$  & $2.443$  & $2.472$  & $2.500$  & $2.526$  & $2.550$    & $2.700$ \\
+        \midrule
+        hydrogen      & $0.380$  & $0.380$  & $0.380$  & $0.380$  & $0.380$  & $0.380$    & $0.380$ \\
+        \midrule
+        nitrogen, ext & $1.900$  & $1.900$  & $1.900$  & $1.900$  & $1.900$  & $1.900$    & $1.900$ \\
+        nitrogen, int & $0.850$  & $0.850$  & $0.850$  & $0.850$  & $0.850$  & $0.850$    & $0.850$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{Mean atomic polarizabilities (in \AA$^3$).}
 }
 
 \btab{tab:n3_t553_ILJ_eint}{

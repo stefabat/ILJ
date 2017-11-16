@@ -34,7 +34,7 @@ At \textit{ab-initio} level, carbon nanotubes (CNTs) have been treated as finite
 \subsubsection{Geometries}
 The geometries of the nanotubes and the azide anion have been optimized using restricted Kohn-Sham density functional theory (DFT), employing the B97D3 exchange-correlation functional with Becke-Johnson damping\cite{Grimme2010,Grimme2011}.
 For both fragments Dunning's triple-$\zeta$ cc-pVTZ basis set\cite{DunningJr1989} has been used, with the addition of diffuse functions (aug-)\cite{Kendall1992} in the case of the \ntm fragment.\\
-The nanotubes geometries retained the high $D_{5d}$ symmetry, with both parallel and perpendicular (to the principal axis) C--C bonds showing the typical alternation pattern of these systems when treated with open boundary conditions\cite{Zhou2004,Galano2006}. As the length of the nanotube increases, the average C--C bond length approaches the experimental value of 1.421 \AA\ [REFERENCE].\\
+The nanotubes geometries retained the high $D_{5d}$ symmetry, with both parallel and perpendicular (to the principal axis) C--C bonds showing the typical alternation pattern of these systems when treated with open boundary conditions\cite{Zhou2004,Galano2006}. As the length of the nanotube increases, the average C--C bond length also increases, from $1.4237$ \AA\ to $1.4268$ \AA, which is in agreement with the fact that the bond gets slightly stretched due to the curvature.\\
 The relaxed \ntm geometry has linear $D_{\infty h}$ symmetry, with an N--N bond length of $1.1874$ \AA, which is in excellent agreement with the experimental gas phase value of $1.1884$ \AA\cite{Polak1987}.\\
 All the optimizations just mentioned have been performed using the Gaussian 09 software package, revision d01\cite{g09}, using the default convergence thresholds, the ultrafine grid for the integral quadrature and spherical \textit{d} and \textit{f} basis functions.
 
@@ -121,9 +121,11 @@ The total interaction energy $E_{int}$ is finally obtained by summing the potent
 %
 where $N_C$, $N_N$ and $N_H$ correspond to the total number of carbon, nitrogen and hydrogen atoms, respectively.
 The superscript $(ij)$ in the ILJ potential term $V_{ILJ}^{(ij)}$ keeps track of the interacting atom types such that the parameters can be accordingly set to the values given in \tref{tab:ILJ_parms}.
-To obtain the ILJ parameters of \Cref{tab:ILJ_parms}, the experimental value of the mean polarizability $\bar{\alpha} = 4.60$ \AA$^3$\cite{Borgne1999} has been distributed on the three nitrogen atoms proportionally to their partial charge. For a detailed explanation of the procedure, we point the reader to the Supplementary Information.
-The values used for the polarizability volumes (in \AA$^{3}$) appearing in $V^(i)_{ind}$ are given by $\alpha_H = 0.38$ and $\alpha_C = 1.20$ for hydrogen and carbon, respectively. [NOT CONVINCED BY THESE VALUES]
+The ILJ parameters have been obtained following the approach illustrated in Ref. \citenum{Cambi1991}, which is based on the static atomic dipole polarizabilities of the interacting fragments.
+For hydrogen and carbon, the polarizabilities were taken from Refs. \citenum{Gavezzotti2003} and \citenum{Torrens2004}, while for nitrogen, the \ntm experimental total mean polarizability\cite{Borgne1999}, $\bar{\alpha} = 4.65$ \AA$^3$, has been distributed on the three atoms according to their partial charges.
+All values are listed in \tref{tab:polarizabilities}.
 The partial atomic charges on the azide anion were set to be $q_1 = q_3 = -0.56$ and $q_2 = 0.12$, while for the carbon nanotube they have been obtained through a natural population analysis\cite{Reed1985a} of the electron density calculated at B97D3/cc-pVTZ level of theory.\\
+Additional information on the atomic polarizabilities and the procedure used to obtain the ILJ parameters is available in the Supplementary Information.\\
 
 In \fref{fig:n3t55x_comp_eint} it can be seen the direct comparison of the \emph{ab-initio} and the classical potential ($\beta = 8$ and $f(r_{i1},r_{i2},r_{i3}) = 1$) for nanotubes with $\Lambda = 3,5,7,9,11,13$. 
 The various components of the classical potential can also be considered separately, and these are listed in \tref{tab:pot_comp} and plotted in \fref{fig:n3t55x_classical_eint} along with the total and the \emph{ab-initio} ones.

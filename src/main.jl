@@ -2,25 +2,45 @@
 include("ILJ.jl")
 include("xyz_parser.jl")
 
+# Compute ILJ parameters
+#α_C = 1.200; α_C_eff = 2.50; N_C_eff = 3.3
+α_C = 1.136; α_C_eff = 2.414; N_C_eff = 3.3
+α_H = 0.38;  α_H_eff = 0.40; N_H_eff = 1.0
+α_N_ext = 1.9 ; α_N_ext_eff = 2.20; N_N_ext_eff = 5.0
+α_N_int = 0.85; α_N_int_eff = 1.00; N_N_int_eff = 4.2
+
+r0_C_N_ext = Rm(α_C_eff,α_N_ext_eff)
+r0_C_N_int = Rm(α_C_eff,α_N_int_eff)
+r0_H_N_ext = Rm(α_H_eff,α_N_ext_eff)
+r0_H_N_int = Rm(α_H_eff,α_N_int_eff)
+
+C6_C_N_ext = C6eff(α_C,N_C_eff,α_N_ext,N_N_ext_eff)
+C6_C_N_int = C6eff(α_C,N_C_eff,α_N_int,N_N_int_eff)
+C6_H_N_ext = C6eff(α_H,N_H_eff,α_N_ext,N_N_ext_eff)
+C6_H_N_int = C6eff(α_H,N_H_eff,α_N_int,N_N_int_eff)
+
+ϵ_C_N_ext = epsilon(r0_C_N_ext,C6_C_N_ext) 
+ϵ_C_N_int = epsilon(r0_C_N_int,C6_C_N_int) 
+ϵ_H_N_ext = epsilon(r0_H_N_ext,C6_H_N_ext) 
+ϵ_H_N_int = epsilon(r0_H_N_int,C6_H_N_int) 
+
 # Define ILJ parameters, ϵ is in meV and r is in Ang
-ϵ_C_N_ext = 5.205; r0_C_N_ext = 3.994;      # Carbon to external nitrogens
-ϵ_C_N_int = 3.536; r0_C_N_int = 3.818;      # Carbon to internal nitrogen
-ϵ_H_N_ext = 2.827; r0_H_N_ext = 3.644;
-ϵ_H_N_int = 2.431; r0_H_N_int = 3.348;
+#ϵ_C_N_ext = 5.205; r0_C_N_ext = 3.994;      # Carbon to external nitrogens
+#ϵ_C_N_int = 3.536; r0_C_N_int = 3.818;      # Carbon to internal nitrogen
+#ϵ_H_N_ext = 2.827; r0_H_N_ext = 3.644;
+#ϵ_H_N_int = 2.431; r0_H_N_int = 3.348;
 β = 8.0
 m = 6.0
 Q_N_ext = -0.56; Q_N_int = +0.12; # in au units
-α_C = 1.2 # in Ang^3
-α_H = 0.38
-#α_C = 1.334 # in Ang^3
-#α_H = 0.496
+#α_C = 1.2 # in Ang^3
+#α_H = 0.38
 
 # Read the two fragments
-frag_1 = readxyz("data/geometries/t5511_b97d3_cc-pvtz.xyz")
+frag_1 = readxyz("data/geometries/t553_b97d3_cc-pvtz.xyz")
 frag_2 = readxyz("data/geometries/n3_b97d3_aug-cc-pvtz.xyz")
 
 # Parse atomic charges of fragment_1 and set them
-frag_1.charges = readdlm("data/charges/t5511_b97d3_cc-pvtz_npa.dat")
+frag_1.charges = readdlm("data/charges/cc-pvtz/t553_b97d3_cc-pvtz_npa.dat")
 
 # Set partial atomic charges to azide anion
 frag_2.charges = [Q_N_ext Q_N_int Q_N_ext]
@@ -86,7 +106,11 @@ V_ind_tot_kcal = V_ind_tot * mevtokcal
 V_int_tot_kcal = V_int_tot * mevtokcal
 
 ##### PRINTING OUTPUT #####
-println("\n\tParameters:    β = ",β,"    m = ",m,"    α_C = ",α_C,"    α_H = ",α_H)
+println("\n\tParameters:     β = ",β,"    m = ",m,"    α_C = ",α_C,"    α_H = ",α_H)
+println("\t\t\tr0_C_Ni = ",round(r0_C_N_int,3),"\t     ϵ_C_Ni = ",round(ϵ_C_N_int,3))
+println("\t\t\tr0_C_Ne = ",round(r0_C_N_ext,3),"\t     ϵ_C_Ne = ",round(ϵ_C_N_ext,3))
+println("\t\t\tr0_H_Ni = ",round(r0_H_N_int,3),"\t     ϵ_H_Ni = ",round(ϵ_H_N_int,3))
+println("\t\t\tr0_H_Ne = ",round(r0_H_N_ext,3),"\t     ϵ_H_Ne = ",round(ϵ_H_N_ext,3))
 
 @printf("\n%46s %8.2f [meV]\n","Total Improved Lennard-Jones term:",V_ILJ_tot)
 @printf("%46s %8.2f [kcal/mol]\n\n","Total Improved Lennard-Jones term:",V_ILJ_tot_kcal)

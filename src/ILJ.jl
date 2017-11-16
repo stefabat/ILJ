@@ -32,3 +32,16 @@ end
 function electrostatic_kernel()
     return (Q1, Q2, R_ij) -> (Q1 * Q2 / R_ij) * 1000*toev/tobohr
  end
+
+function Rm(α1_eff,α2_eff)
+    return 1.767 * (α1_eff^(1/3) + α2_eff^(1/3))/(α1_eff*α2_eff)^0.095
+end
+
+function C6eff(α1,N1_eff,α2,N2_eff)
+    return 15700 * α1 * α2 / (sqrt(α1/N1_eff) + sqrt(α2/N2_eff))
+end
+
+function epsilon(R,C6)
+    return 0.720 * C6/R^6
+end
+
