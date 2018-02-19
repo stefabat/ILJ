@@ -71,6 +71,7 @@ for i in range(1,frag_1.n_atoms)
     R1 = vecnorm(frag_1.coords[i,:] - frag_2.coords[1,:])
     R2 = vecnorm(frag_1.coords[i,:] - frag_2.coords[2,:])
     R3 = vecnorm(frag_1.coords[i,:] - frag_2.coords[3,:])
+    println(R1,"  ",R2,"  ",R3)
     if frag_1.types[i] == "C"
         V_els_C_N1 += els(frag_1.charges[i], frag_2.charges[1], R1)
         V_els_C_N2 += els(frag_1.charges[i], frag_2.charges[2], R2)
