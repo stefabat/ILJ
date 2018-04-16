@@ -15,12 +15,12 @@ include("xyz_parser.jl")
 β = 8.0
 m = 6.0
 q_Next = -0.56; q_Nint = +0.12; # in au units
-α_C = 1.136 # in Ang^3
+α_C = 1.20 # in Ang^3
 α_H = 0.38
     
 # Read the two fragments
-frag_1 = readxyz("data/geometries/ch6.xyz")
-frag_2 = readxyz("data/geometries/n3.xyz")
+frag_1 = readxyz("../data/geometries/c6h6.xyz")
+frag_2 = readxyz("../data/geometries/n3.xyz")
 
 # Assign charges to fragments
 frag_1.charges = repeat([-0.1;0.1], inner=6)

@@ -50,7 +50,7 @@ In this contribution, all interaction energies computed using first principles m
 where the fragment energies $E_{cnt}$ and $E_{azide}$ have been computed in the basis set of the complex system, thus correcting the basis set superposition error according to the Boys and Bernardi scheme\cite{Boys1970}.
 Relaxation effects on the two interacting fragments have not been taken into account, although it has been recently shown that they contribute only in the order of 1--2 kcal/mol\cite{Battaglia2017a} to $E_{int}$ and thus do not substantially modify the overall picture.\\
 To locate the minimum of the potential energy surface (PES), a series of constrained optimizations involving nanotubes of lengths between 3 and 9 units has been performed. In these optimizations, the optimal geometry of the two fragments has been kept frozen and only their relative distance and orientation have been optimized, thus locating the adsorption distance.
-This series of optimizations has been performed using the ORCA 4 program package\cite{ORCA} at the same level of theory as before, besides employing the smaller cc-pVDZ basis set on the nanotube, the resolution of the identity technique for the Coulomb matrix using the auxiliary basis def2/J by Weigend \textit{et al.}\cite{Weigend2006}.\\
+This series of optimizations has been performed using the ORCA 4 program package\cite{ORCA4} at the same level of theory as before, besides employing the smaller cc-pVDZ basis set on the nanotube, the resolution of the identity technique for the Coulomb matrix using the auxiliary basis def2/J by Weigend \textit{et al.}\cite{Weigend2006}.\\
 Remarkably, it turns out that in the particular case of an azide anion confined inside a $(5,5)$CNT, the geometry with the \ntm molecule placed exactly in the center of the nanotube, aligned to its principal axis, results to be a local minimum. Moreover, the difference between this minimum and the lowest minimum found is at most less than $0.6$ kcal/mol for the nanotubes studied. For this reason, the geometry with the \ntm molecule placed in the center of the CNTs has been used for the calculation of $E_{int}$ at higher levels of theory and for nanotubes longer than 9 units.
 For a detailed explanation of the structure optimizations, the criteria used to compare them and all the geometries, we point the reader to the Supplementary Information.\\
 
@@ -82,24 +82,27 @@ For a detailed explanation of the parameters used in the calculation and the tes
 \subsection{Molecular Dynamics}
 The Improved Lennard-Jones (ILJ) potential\cite{Pirani2008} is given by
 %
-\begin{equation}
-    V_{ILJ}(r_{ij}) = \epsilon \left[ \frac{m}{n(r_{ij})-m} \cdot \Big( \frac{r_0}{r_{ij}} \Big)^{n(r_{ij})} -
-                                 \frac{n(r_{ij})}{n(r_{ij})-m} \cdot \Big( \frac{r_0}{r_{ij}} \Big)^{m} \right]
+\begin{equation}\label{eq:V_ILJ}
+    V_{ILJ}(r_{ij}) = \epsilon \left[ \frac{m}{n(r_{ij})-m} \cdot \Big( \frac{r_m}{r_{ij}} \Big)^{n(r_{ij})} -
+                                 \frac{n(r_{ij})}{n(r_{ij})-m} \cdot \Big( \frac{r_m}{r_{ij}} \Big)^{m} \right]
 \end{equation}
 %
 where
 %
 \begin{equation}
-    n(r_{ij}) = \beta + 4.0 \cdot \Big( \frac{r_{ij}}{r_0} \Big)^2
+    n(r_{ij}) = \beta + 4.0 \cdot \Big( \frac{r_{ij}}{r_m} \Big)^2
 \end{equation}
 %
-and $r_{ij}$ is the distance between atom $i$ in the carbon nanotube and atom $j$ in the \ntm molecule. The parameters $r_0$ and $\epsilon$ are set according to the atoms interacting, $\beta$ is a free parameter used to fit the potential to experimental or numerical values, while $m$ is set according the to the partial charges of the interacting species.
+and $r_{ij}$ is the distance between atom $i$ in the carbon nanotube and atom $j$ in the \ntm
+molecule. The parameters $r_m$ and $\epsilon$ are set according to the atoms interacting,
+$\beta$ is a free parameter used to fit the potential to experimental or numerical values,
+while $m$ is set according the to the partial charges of the interacting species.
 Since the azide anion has a total negative charge of $-1$, one has to introduce a non-bonded term in the potential which accounts for the induced polarization on the carbon nanotube due to the excess negative charge of the anion.
 The potential term $V_{ind}$ describing the dipole induced by the $\text{N}_3^-$ anion on a neutral fragment is given by
 %
-\begin{equation}
+\begin{equation}\label{eq:V_ind}
     V_{ind}(r_{i1},r_{i2},r_{i3}) = - \frac{1}{2} \cdot \alpha \cdot f(r_{i1},r_{i2},r_{i3})
-                        \left[ \frac{q_1}{r_{i1}^2} + \frac{q_2}{r_{i2}^2} + \frac{q_3}{r_{i3}^2} \right]^2
+        \left[ \frac{q_1}{r_{i1}^2} + \frac{q_2}{r_{i2}^2} + \frac{q_3}{r_{i3}^2} \right]^2
 \end{equation}
 %
 where $r_{i1}$, $r_{i2}$ and $r_{i3}$ are the distances between atom $i$ of the neutral species and the three nitrogen atoms of the azide anion, $q_1$, $q_2$ and $q_3$ are the partial charges on the nitrogen atoms, $\alpha$ is the polarizability per volume of the atoms in the neutral species and $f(r_{i1},r_{i2},r_{i3})$ is a damping factor.\\  % $f(R_{i,2}) = \frac{n(R_{i,2})}{n(R_{i,2}) - 4}$
@@ -167,5 +170,405 @@ Interaction energies have been computed at different levels of theory for the sh
 The RI-MP2 and DLPNO-MP2 values are used as a reference to check the error introduced by the DLPNO methods.
 The suggested threshold[REFERENCE] to obtain very accurate results for non-covalently bounded systems is the ``TightPNO''. Nonetheless, the DLPNO-MP2 interaction energies obtained with the ``NormalPNO'' threshold only show small deviations from the canonical RI-MP2 values. For this reason and considering our computational limitations, the DLPNO-CCSD(T) have also been performed using the ``NormalPNO'' threshold.
 We argue that the error introduced by the looser cutoffs is anyway smaller than the error introduced with the classical potential.
+
+\subsection{Implementation of Analytical Forces, Virial and Stress Tensor}
+
+\subsubsection{Improved Lennard-Jones Potential}
+In the main text, the analytical form of the ILJ potential is presented in \Cref{eq:V_ILJ}.
+In order to perform efficiently molecular dynamics simulations, it is required to obtain
+and implement in the computer program the expression for calculation the forces acting
+on each interaction center due to the potential energy function.\\
+We start by labeling the various parts of the ILJ potential as follows
+%
+\begin{align}
+    V_{ILJ}(r_{ij}) &= \epsilon \left[ \frac{m}{n(r_{ij})-m} \cdot
+                       \Big( \frac{r_m}{r_{ij}} \Big)^{n(r_{ij})} -
+                       \frac{n(r_{ij})}{n(r_{ij})-m} \cdot 
+                       \Big( \frac{r_m}{r_{ij}} \Big)^{m} \right] \\
+                    &= \epsilon \left[ f(r_{ij}) g(r_{ij}) - h(r_{ij}) j(r_{ij}) \right]
+                    \label{eq:V_ILJ_simple}
+\end{align}
+%
+For the implementation of the forces due to a general pairwise potential $V(r)$ in the DL POLY
+4 program\cite{}, we are seeking the following intermediate function
+%
+\begin{equation}
+    G(r_{ij}) = - \frac{1}{r_{ij}} \frac{\partial}{\partial r_{ij}} V(r_{ij})
+\end{equation}
+%
+where we kept the notation $G(r_{ij})$, although it has nothing to do with the function
+$g(r_{ij})$ appearing in \Cref{eq:V_ILJ_simple}.
+The forces on atom $i$ are then evaluated through the following multiplication
+%
+\begin{equation}\label{eq:forces}
+    \begin{aligned}
+    \vec{F}_i(r_{ij}) &= G(r_{ij}) \vec{r}_{ij} \\
+    &= -\frac{1}{r_{ij}} \left[ \frac{\partial}{\partial r_{ij}} V(r_{ij}) \right] \vec{r}_{ij}
+    \end{aligned}
+\end{equation}
+For the sake of lightening the syntax, in the following derivations we will denote
+$r \equiv r_{ij}$.\\
+To begin with, let us compute the derivative of the function $n(r)$ appearing in the
+potential
+%
+\begin{align}
+    \ddr n(r) &= \ddr \left[ \beta + 4 \left( \frac{r}{r_m} \right)^2 \right] \\
+    &= 8 \frac{r}{r_m^2}
+\end{align}
+%
+Next, the derivative of the ILJ potential with respect to $r$ is given, in the simplified
+version introduced above, by
+%
+\begin{equation}\label{eq:dVdr_ILJ_simple}
+    \ddr V_{ILJ}(r) = \epsilon \left[ f'(r)g(r) + f(r)g'(r) -
+                                      h'(r)j(r) - h(r)j'(r) \right]
+\end{equation}
+%
+where the prime signs indicate a derivative with respect to $r$.
+The derivative of $f(r)$ is straightforward and has the following form
+%
+\begin{equation}
+    \ddr f(r) = \ddr\frac{m}{n(r)-m} = n'(r)\frac{-m}{(n(r)-m)^2} = \frac{-n'(r)}{(n(r)-m)}f(r)
+\end{equation}
+%
+The derivative of $g(r)$ is more complicated since $n(r)$ appears in the exponent. Therefore,
+we employ the logarithmic differentiation as follows
+%
+\begin{align}
+    \ln (g(r)) &= \ln \left( \frac{r_m}{r} \right) n(r) \\
+    \ddr \ln (g(r)) &= \ddr \left[ \ln \left( \frac{r_m}{r}n(r) \right) \right] \\
+    g'(r) \frac{1}{g(r)} &= \frac{-1}{r}n(r) + \ln \left( \frac{r_m}{r}n'(r) \right) \\
+    g'(r) = \ddr g(r) &= g(r)\left[\ln\left(\frac{r_m}{r}\right)n'(r) - \frac{n(r)}{r}\right]
+\end{align}
+To obtain $h'(r)$ we carry out the following steps
+%
+\begin{align}
+    \ddr h(r) &= \ddr \frac{n(r)}{n(r)-m} \\
+    &= \frac{n'(r)(n(r)-m)-n(r)n'(r)}{(n(r)-m)^2} \\
+    &= \frac{n'(r)n(r) - n'(r)m - n(r)n'(r)}{(n(r)-m)^2} \\
+    &= \frac{-n'(r)m}{(n(r)-m)^2} \\
+    &= \frac{m}{n(r)-m} \frac{-n'(r)}{n(r)-m}
+\end{align}
+%
+Finally, the last derivative reads
+%
+\begin{equation}
+    \ddr j(r) = \ddr \left(\frac{r_m}{r}\right)^m = -m\frac{r_m^m}{r^{m+1}} = \frac{-m}{r}j(r)
+\end{equation}
+%
+By explicitly inserting all the computed terms into \Cref{eq:dVdr_ILJ_simple} we obtain
+the final form for $\ddr V_{ILJ}$
+%
+\begin{align}
+    \frac{\partial V_{ILJ}(r)}{\partial r} &= \epsilon
+        \left[ f'(r)g(r) + f(r)g'(r) - h'(r)j(r) - h(r)j'(r) \right] \\
+    &= \epsilon \left[ 
+        t_1 t_2 t_3
+        + t_2 t_3 \left[ \ln \left(\frac{r_m}{r}\right)n'(r) - \frac{n(r)}{r} \right]
+        - t_1 t_2 t_4
+        - \frac{n(r)}{n(r)-m} \frac{-m}{r} t_4 \right]
+\end{align}
+%
+where we have introduced intermediates $t_1, t_2, t_3$ and $t_4$, according to
+%
+\begin{align}
+    t_1 &= \frac{-n'(r)}{n(r)-m} \\
+    t_2 &= \frac{m}{n(r)-m} \\
+    t_3 &= \left( \frac{r_m}{r} \right)^{n(r)} \\
+    t_4 &= \left( \frac{r_m}{r} \right)^m
+\end{align}
+%
+The ILJ force vectors can now be simply computed through \Cref{eq:forces}.\\
+Note that the ILJ potential is completely general and can be used with any molecular
+species as long as the parameters are accordingly defined.
+
+\subsubsection{Induction Potential}
+The induction potential generated by three point charges is defined in \Cref{eq:V_ind}.
+In the following we are going to expand the squared term on the right hand side of
+\Cref{eq:V_ind} and introduce a more convenient notation for the derivation of the forces,
+%
+\begin{equation}\label{eq:V_ind_simple}
+    \begin{aligned}
+        V_{ind}(r_{i1},r_{i2},r_{i3}) &= - \frac{1}{2} \alpha \left[ 
+            \frac{q_1}{r_{i1}^2} + \frac{q_2}{r_{i2}^2} + \frac{q_3}{r_{i3}^2} \right]^2 \\
+            &= - \frac{1}{2} \alpha \left[ \frac{q_1^2}{r_{i1}^4} + \frac{q_2^2}{r_{i2}^4}
+            + \frac{q_3^2}{r_{i3}^4} + \frac{2q_1 q_2}{r_{i1}^2 r_{i2}^2}
+            + \frac{2q_2 q_3}{r_{i2}^2 r_{i3}^2} + \frac{2q_1 q_3}{r_{i1}^2 r_{i3}^2} \right] \\
+            &= - \frac{1}{2} \alpha \left[ t^i_{11} + t^i_{22} + t^i_{33}
+            + 2t^i_{12} + 2t^i_{23} + 2t^i_{13} \right]
+    \end{aligned}
+\end{equation}
+%
+where we note that the terms $t^i_{jk} = t^i_{kj}$ are symmetric.\\
+As before, we are interested in obtaining all the components of the force vector $\vec{F}_i$
+acting on atom $i$. In order to do so, we can differentiate the potential with respect to the
+individual components of the coordinate vector $\vec{r}_i = [x_i, y_i, z_i]$.
+For example, for the $x$ componet we have
+%
+\begin{equation}
+    \vec{F}_{i,x} = - \dfdx{V_{ind}}{x_i}
+\end{equation}
+%
+and similarly for the other two.\\
+The potential $V_{ind}$ depends on the distances $r_{i1}, r_{i2}$ and $r_{i3}$ between
+atom $i$ and the three nitrogen atoms, thus to obtain the derivative with respect to the
+Cartesian components we have to apply the chain rule, as exemplified in the following for $x_i$
+%
+\begin{equation}\label{eq:dVdr_ind_simple}
+    \dfdx{V_{ind}}{x_i} = \dfdx{V_{ind}}{r_{i1}}\dfdx{r_{i1}}{x_i} +
+        \dfdx{V_{ind}}{r_{i2}}\dfdx{r_{i2}}{x_i} + \dfdx{V_{ind}}{r_{i3}}\dfdx{r_{i3}}{x_i}
+\end{equation}
+%
+Let us denote $w_i = \{ x_i,y_i,z_y \}$, then we have in general
+%
+\begin{equation}
+    \dfdx{r_{ij}}{w_i} = \dfdx{}{w_i} \sqrt{(x_i-x_j)^2 + (y_i-y_j)^2 + (z_i-z_j)^2}
+        = 2(w_i-w_j) \frac{1}{2} \frac{1}{r_{ij}} = \frac{w_{ij}}{r_{ij}}
+\end{equation}
+%
+where $w_{ij} = w_i - w_j$.\\
+The derivatives of the terms $t^i_{jk}$ introduced in \Cref{eq:V_ind_simple} can be
+separate into two possible cases.
+In the first case, indices $j$ and $k$ are the same
+%
+\begin{equation}
+    \dfdx{t^i_{jj}}{w_i} = \dfdx{t^i_{jj}}{r_{ij}} \dfdx{r_{ij}}{w_i}
+        = \dfdx{t^i_{jj}}{r_{ij}} \frac{w_{ij}}{r_{ij}}
+        = \left( \dfdx{}{r_{ij}} \frac{q_j^2}{r_{ij}^4} \right) \frac{w_{ij}}{r_{ij}}
+        = -4 q_j^2 r_{ij}^{-5} \frac{w_{ij}}{r_{ij}}
+        = -4 \frac{q_j^2 w_{ij}}{r_{ij}^6}
+\end{equation}
+%
+In the second case, the indices $j$ and $k$ are different
+%
+\begin{align}
+    \dfdx{t^i_{jk}}{w_i} &= \dfdx{t^i_{jk}}{r_{ij}} \dfdx{r_{ij}}{w_i}
+        + \dfdx{t^i_{jk}}{r_{ik}} \dfdx{r_{ik}}{w_i} \\
+        &= \dfdx{t^i_{jk}}{r_{ij}} \frac{w_{ij}}{r_{ij}}
+        + \dfdx{t^i_{jk}}{r_{ik}} \frac{w_{ik}}{r_{ik}} \\
+        &= \left(\dfdx{}{r_{ij}}\frac{q_j q_k}{r_{ij}^2 r_{ik}^2}\right)\frac{w_{ij}}{r_{ij}}
+        + \left(\dfdx{}{r_{ik}}\frac{q_j q_k}{r_{ij}^2 r_{ik}^2}\right)\frac{w_{ik}}{r_{ik}} \\
+        &= -2 q_j q_k r_{ij}^{-3} r_{ik}^{-2} \frac{w_{ij}}{r_{ij}}
+           -2 q_j q_k r_{ij}^{-2} r_{ik}^{-3} \frac{w_{ik}}{r_{ik}} \\
+        &= -2 \frac{q_j q_k w_{ij}}{r_{ij}^4 r_{ik}^2}
+           -2 \frac{q_j q_k w_{ik}}{r_{ij}^2 r_{ik}^4}
+\end{align}
+%
+The final form of the induction forces can be obtained by inserting all terms just computed
+into \Cref{eq:dVdr_ind_simple}, by substituting indices $1,2,3$ with $j$ and $k$.\\
+Note that due to the non-additive nature of the induction potential, this derivation
+of the forces only applies to the potential generated by three point charges.
+Therefore, if more or less charges are the sources of induction, the forces have to be
+derived and implemented another time.
+Note also that the forces due to the induction potential only apply to atoms not belonging
+to \ntm.\\
+\\
+In order to obtain the pressure of a thermodynamic system, we can rely on Clausis' Virial
+theorem, given by
+%
+\begin{equation}
+    P = \frac{1}{3V} \left( 2 \langle K \rangle - \langle \Psi \rangle \right)
+\end{equation}
+%
+where $\langle \Psi \rangle$ is the ensemble average of the virial $\Psi$.\\
+Another method to obtain the pressure is by statistical thermodynamics arguments, through
+the equation
+%
+\begin{equation}\label{eq:pressure_td}
+    P = -\Bigg< \left( \frac{\partial H^N(\vec{r}^N,\vec{p}^N)}{\partial V} \right)_T\Bigg>
+\end{equation}
+%
+where
+%
+\begin{equation}\label{eq:Hamiltonian}
+    H^N(\vec{r}^N,\vec{p}^N) = K^N(\vec{p}^N) + \Phi^N(\vec{r}^N)
+\end{equation}
+%
+is the Hamiltonian of the system.\\
+Note how in \Cref{eq:pressure_td} there is a partial derivative with respect to the system
+volume $V$, but in general, the Hamiltonian of \Cref{eq:Hamiltonian} does not contain
+the volume explicitly.
+In order to introduce the volume and obtain an explicit form of \Cref{eq:Hamiltonian}, we
+carry out the following substitution
+%
+\begin{equation}
+    \vec{r}^N = V^{1/3} \vec{s}^N
+\end{equation}
+%
+which introduces the scaled positions $\vec{s}^N$.
+After some algebraic manipulation, we obtain the derivative of \Cref{eq:Hamiltonian} w.r.t.
+the volume as
+%
+\begin{align}
+    \dfdx{H^N(\vec{r}^N,\vec{p}^N)}{V}&=\dfdx{K^N(\vec{p}^N)}{V}+\dfdx{\Phi^N(\vec{r}^N)}{V} \\
+    &= \ldots \\
+    &= \frac{-1}{3V} \left( 2K^N(\vec{p}^N) - \Psi^N(\vec{r}^N) \right)
+\end{align}
+%
+which has the same form as Clausius' virial theorem.\\
+The virial $\Psi^N(\vec{r}^N)$ is then given by
+%
+\begin{equation}
+    \Psi^N(\vec{r}^N) = \dfdx{\Phi^N(\vec{r}^N)}{\vec{r}^N} \cdot \vec{r}^N
+\end{equation}
+%
+or, alternatively written as
+%
+\begin{equation}\label{eq:virial}
+    \Psi^N(\vec{r}^N) = 3V \dfdx{\Phi^N(\vec{r}^N)}{V}
+\end{equation}
+%
+In order to compute the virial for $V_{ind}$, we use this last equation, after introduction
+of the scaled positions in order to have an explicit dependence of the potential w.r.t. the
+volume.
+The induction potential with scaled positions reads
+%
+\begin{equation}\label{eq:V_ind_scaled}
+    V_{ind}(V^{1/3}s_{i1},V^{1/3}s_{i2},V^{1/3}s_{i3}) = - \frac{1}{2} \alpha \left[
+        \frac{q_1}{V^{1/3}s_{i1}^2} + \frac{q_2}{V^{1/3}s_{i2}^2}
+        + \frac{q_3}{V^{1/3}s_{i3}^2} \right]^2
+\end{equation}
+%
+By rearranging the terms in \Cref{eq:V_ind_scaled} we have
+%
+\begin{equation}\label{eq:V_ind_scaled}
+    V_{ind}(V^{1/3}s_{i1},V^{1/3}s_{i2},V^{1/3}s_{i3}) = -\frac{1}{2}\alpha\frac{1}{V^{4/3}}
+    \left[ \frac{q_1}{V^{1/3}s_{i1}^2} + \frac{q_2}{V^{1/3}s_{i2}^2}
+        + \frac{q_3}{V^{1/3}s_{i3}^2} \right]^2
+\end{equation}
+%
+and we can now take the derivative as
+%
+\begin{align}\label{eq:dVdV_ind}
+    \dfdx{V_{ind}}{V} &= \frac{-4}{3} V^{-7/3} \frac{-1}{2} \alpha \left[ 
+        \frac{q_1}{s_{i1}^2} + \frac{q_2}{s_{i2}^2} + \frac{q_3}{s_{i3}^2} \right]^2 \\
+        &= \frac{-4}{3} V^{-1} \frac{-1}{2} \alpha \left[ V^{-4/3} \left(
+        \frac{q_1}{s_{i1}^2} + \frac{q_2}{s_{i2}^2} + \frac{q_3}{s_{i3}^2} \right)^2 \right] \\
+        &= \frac{-4}{3V} \frac{-1}{2} \alpha \left[ \frac{q_1}{V^{2/3}s_{i1}^2}
+        + \frac{q_2}{V^{2/3}s_{i2}^2} + \frac{q_3}{V^{2/3}s_{i3}^2} \right]^2 \\
+        &= \frac{-4}{3V} V_{ind} (r_{i1},r_{i2},r_{i3})
+\end{align}
+%
+By comparing \Cref{eq:dVdV_ind} with \Cref{eq:virial} we see that the virial for particle $i$
+due to the induction potential is given by
+%
+\begin{align}
+    \Psi_{ind}^i(r_{i1},r_{i2},r_{i3}) &= 3V \dfdx{V_{ind}}{V} \\
+        &= 3V \frac{-4}{3V} V_{ind}(r_{i1},r_{i2},r_{i3}) \\
+        &= -4 V_{ind}(r_{i1},r_{i2},r_{i3})
+\end{align}
+%
+
+\subsection{Implementation Tests}
+In this section we show the tests performed in order to validate the implementation of both
+the ILJ and the induction potentials.
+To perform the tests, we use a simple system that allows us to keep track of all important
+quantities, namely a benzene molecule interacting with the \ntm anion as depicted in
+\Cref{fig:n3_benzene}.
+%
+\begin{figure}
+    \captionsetup{width=\textwidth}
+    \centering
+    \includegraphics[width=0.5\textwidth]{n3_benzene}
+    \caption{Test system.}
+    \label{fig:n3_benzene}
+\end{figure}
+%
+The potential energy surface of the \ntm approaching the benzene ring along the $z$-axis
+(i.e. the blue line in \Cref{fig:n3_benzene}) is depicted in \Cref{fig:n3_benzene_pes}.
+%
+\begin{figure}
+    \captionsetup{width=\textwidth}
+    \centering
+    \input{n3_benzene_pes}
+    \caption{Potential energy surface of \ntm and a benzene ring.}
+    \label{fig:n3_benzene_pes}
+\end{figure}
+%
+As we can notice, the magnitude of the induction and the electrostatic potentials are
+comparable. In the long range regime, the Coulomb interaction, decaying as $1/r$, is stronger
+and the total potential is repulsive.
+Nevertheless, this is just a toy model and does not provide quantitative results.
+Note that the charges used on the benzene wer arbitrarily set to $-0.1$ on the carbon atoms
+and to $+0.1$ on the hydrogen atoms.
+Moreover, consider that the ILJ parameters used are not optimized for the interaction 
+between \ntm and a benzene ring.\\
+
+\subsubsection{Forces}
+Accounting for the above considerations, we expect both the electrostatic and induction forces
+to be of comparable magnitude, but pointing in opposing directions.
+Therefore, by checking that the induction forces are within the same range of values than
+the Coulomb forces, and that their direction corresponds to their physical interpretation,
+we can reasonably think that there is no mistake in the implementation.\\
+In \Cref{tab:forces_benzene_att} we can see the values of the $z$ component of the forces acting
+on the benzene molecule due to the azide anion, when placed at a distance $R=4$ \AA.
+Note that the $z$ component is the most important one as it tells us if the two fragments
+are attracting or repelling each other.
+Only values for symmetry-unique atoms of the benzene molecule are shown in
+\Cref{tab:forces_benzene_att}, with the number of repetition in parenthesis.
+A negative sign means repulsion, i.e. the force on the (benzene) atom is directed in the
+opposite direction with respect to the position of the azide anion, and viceversa.
+The only negative forces are observed for the carbon atoms, and this is due to their negative
+charges repelled by the negative charges on the external nitrogen atoms.
+Notice that all induction forces are positive (i.e. pulling the benzene molecule towards
+the \ntm) as they should be, because the induction potential always lowers the energy and
+thus attracts the fragments.
+In the last element of the last row of \Cref{tab:forces_benzene_att} we see that
+the total force on the benzene molecule is positive, i.e. in the direction of the \ntm.
+This is indeed what we expect by inspecting \Cref{fig:n3_benzene_pes}, as at $R=4$ \AA\ the
+(total) potential is in the attractive region.\\
+%
+\begin{table}
+    \captionsetup{width=\textwidth}
+    \centering
+    \caption{$z$ component of the force on the benzene due to the azide anion
+    at interfragment distance of $R=4$ \AA. Values are given in $10\times$J/mol.}
+    \begin{tabular}{ccccc}
+    \toprule
+    atom label  & vdw     & electrostatic & induction & total \\
+    \midrule
+    (2x)C4    & $+50.85$  & $-645.26$     & $+179.76$ & $-414.65$ \\
+    (4x)C5    & $+16.91$  & $-675.81$     & $+198.39$ & $-460.51$ \\
+    (2x)H10   & $+18.04$  & $+483.32$     & $+31.94$  & $+533.30$ \\
+    (4x)H11   & $+20.60$  & $+534.16$     & $+39.49$  & $+594.25$ \\
+    \midrule
+    benzene   & $+287.82$ & $-890.48$     & $1374.92$ & $+772.26$ \\
+    \bottomrule
+    \end{tabular}
+    \label{tab:forces_benzene_att}
+\end{table}
+%
+We repeat the same calculation, but now for an interfragment distance of $R=3.25$ \AA, thus
+in the repulsive region of the potential.
+Indeed, we observe from \Cref{tab:forces_benzene_rep} that the total force is now pushing
+the benzene molecule away from the \ntm ion.
+In particular we notice in the first column the strong repulsion due to the ILJ potential.
+The contributions from both electrostatic and induction did not change direction, obviously,
+but increased in magnitude. Again, this is behavior corresponds with the PES depicted in
+\Cref{fig:n3_benzene_pes}.
+%
+\begin{table}
+    \captionsetup{width=\textwidth}
+    \centering
+    \caption{$z$ component of the force on the benzene due to the azide anion
+    at interfragment distance of $R=3.25$ \AA. Values are given in $10\times$J/mol.}
+    \begin{tabular}{ccccc}
+    \toprule
+    atom label  & vdw      & electrostatic & induction & total \\
+    \midrule
+    (2x)C4    & $-299.04$  & $-855.22$     & $+388.56$ & $-765.70$ \\
+    (4x)C5    & $-889.79$  & $-936.38$     & $+471.21$ & $-1354.96$ \\
+    (2x)H10   & $+43.21$   & $+580.89$     & $+56.78$  & $+680.88$ \\
+    (4x)H11   & $+13.34$   & $+689.67$     & $+81.60$  & $+784.61$ \\
+    \midrule
+    benzene   & $-4017.46$ & $-1535.54$    & $3101.92$ & $-2451.04$ \\
+    \bottomrule
+    \end{tabular}
+    \label{tab:forces_benzene_rep}
+\end{table}
+%
+
+\subsubsection{Virial and stress tensor}
+
 
 \end{document}
